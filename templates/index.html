@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="UI/style.css">
+    <link rel="stylesheet" href={{url_for('static',filename='style.css')}}>
     <title>Document</title>
 </head>
 <body>
 
     <!--             Nav bar               -->
     <nav>
-        <a href="#" id="logo"><img src="UI/static/logo.png" alt="smart news logo"></a>
+        <a href="#" id="logo"><img src={{url_for('static',filename='images/logo.png')}} alt="smart news logo"></a>
         <div class="btn">
             <a href="#" id="login-btn">Login</a>
             <a href="#" id="register-btn">Register</a>
@@ -31,7 +31,7 @@
             <h3>Filter Negative news and view only positive news with our analysis system</h3>
         </h1>
         <div class="box2_section2">
-            <img src="UI/static/svgimage1.png">    
+            <img src={{url_for('static',filename='images/svgimage1.png')}}>    
         </div>
         
     </div>
