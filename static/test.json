@@ -1,0 +1,36 @@
+{
+	"status":"ok",
+	"totalResults":3,
+	"articles":
+	[
+		{
+			"source":{"id":null,"name":"New York Times"},
+			"author":"Mark Mazzetti, Michael S. Schmidt",
+			"title":"F.B.I. Releases Newly Declassified Document Related to Sept. 11 Attacks - The New York Times",
+			"description":"Families of the Sept. 11 victims have long pushed for a deeper investigation into any possible role the Saudi government had in the attacks, but the document offered no conclusive evidence.",
+			"url":"https://www.nytimes.com/2021/09/11/us/politics/sept-11-saudi-arabia-biden.html",
+			"urlToImage":"https://static01.nyt.com/images/2021/09/12/us/politics/10dc-saudi-print/merlin_176865618_1141b6db-cbaf-4e9d-82d3-e8616e24da62-facebookJumbo.jpg",
+			"publishedAt":"2021-09-12T04:27:00Z",
+			"content":"WASHINGTON The Biden administration released a newly declassified document late Saturday describing connections the F.B.I. examined between the hijackers and the Saudi government in the years since t… [+902 chars]"
+		},
+		{
+			"source":{"id":null,"name":"Stampede Blue"},
+			"author":"Andrew Thomison",
+			"title":"Report: Colts’ Quenton Nelson Cleared To Start Week 1 vs. Seahawks - Stampede Blue","description":"Colts’ left guard Quenton Nelson has been cleared to start Week 1 vs. Seattle.",
+			"url":"https://www.stampedeblue.com/2021/9/11/22668785/report-colts-quenton-nelson-cleared-to-start-week-1-vs-seahawks",
+			"urlToImage":"https://cdn.vox-cdn.com/thumbor/NF8F02BwfMnQDqst4aAaY4UtWGs=/0x399:5568x3314/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset/file/22723156/1272540589.jpg",
+			"publishedAt":"2021-09-11T21:28:38Z",
+			"content":"Indianapolis Colts left guard Quenton Nelson has been cleared to start Week 1 vs. the Seattle Seahawks, per Chris Mortenson. \r\nNot only is @Colts QB Carson Wentz ready but OG Quenton Nelson also now … [+1682 chars]"
+		},
+		{
+			"source":{"id":"usa-today","name":"USA Today"},
+			"author":"Sarah Elbeshbishi, USA TODAY",
+			"title":"'Children of the same foul spirit.' George W. Bush compares violent domestic extremists to 9/11 terrorists - USA TODAY",
+			"description":"Former President George W. Bush called on Americans to confront the threat of domestic and foreign terrorism in his remarks at the Flight 93 Memorial.",
+			"url":"https://www.usatoday.com/story/news/politics/2021/09/11/bush-calls-americans-confront-domestic-and-foreign-terrorists/8299807002/",
+			"urlToImage":"https://www.gannett-cdn.com/presto/2021/09/11/USAT/f6d7eca5-d21f-477d-ad62-1792fad21653-AFP_AFP_9MM9HC.jpg?auto=webp&crop=4499,2531,x0,y0&format=pjpg&width=1200",
+			"publishedAt":"2021-09-11T20:41:30Z",
+			"content":"Former President George W. Bush compared domestic and foreign extremists Saturday, seeming to liken the insurrectionists who attacked the U.S. Capitol on Jan. 6 to the 9/11 hijackers and calling on A… [+1838 chars]"
+		}
+	]
+}

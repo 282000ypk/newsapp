@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href={{url_for('static',filename='style.css')}}>
+    <link rel="stylesheet" href={{url_for('static',filename='readnews.css')}}>
+    <title>Document</title>
+</head>
+<body>
+    <!-- nav -->
+    <nav>
+        <a href="#" id="logo"><img src={{url_for('static',filename='images/logo.png')}} alt="smart news logo"></a>
+        <!--<div class="btn">
+            <a href="#" id="login-btn">Login</a>
+            <a href="#" id="register-btn">Register</a>
+        </div>-->
+    </nav>
+    <!--container-->
+    <div class="allnews" id="allnewsid">
+
+        {%for news in data["articles"]%}
+        <a href="{{news['url']}}" class="news" target="_blank">
+            <div class="card">
+                <h2>
+                    News Heading
+                </h2>
+                <img src="{{news['urlToImage']}}" alt="news description" loading="lazy">
+                
+                <p>
+                    {{news['description']}}
+                </p>
+            </div>
+        </a>
+        {% endfor %}
+        
+    </div>
+
+    <script type="text/javascript" src={{url_for('static',filename='readnews.js')}}></script>
+</body>
+</html>
