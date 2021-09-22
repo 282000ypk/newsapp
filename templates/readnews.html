@@ -17,20 +17,27 @@
             <a href="#" id="register-btn">Register</a>
         </div>-->
     </nav>
+    
     <!--container-->
     <div class="allnews" id="allnewsid">
-
+        <header>
+            <a href="#">All News</a>
+            <a href="#">Sports News</a>
+            <a href="#">Stock Market</a>
+            <a href="#">Health and Care</a>
+        </header>
         {%for news in data["articles"]%}
         <a href="{{news['url']}}" class="news" target="_blank">
             <div class="card">
                 <h2>
-                    News Heading
+                    {{news['title']}}
                 </h2>
                 <img src="{{news['urlToImage']}}" alt="news description" loading="lazy">
                 
                 <p>
                     {{news['description']}}
                 </p>
+                <h3>{{news['sentiment']}}</h3>
             </div>
         </a>
         {% endfor %}
