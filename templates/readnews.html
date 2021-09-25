@@ -43,7 +43,9 @@
         {% endfor %}
         
     </div>
-
+    <button class="filter-btn">
+        <img src="{{url_for('static',filename='images/filter-solid.svg')}}">
+    </button>
     <script type="text/javascript" src={{url_for('static',filename='readnews.js')}}></script>
 </body>
 </html>

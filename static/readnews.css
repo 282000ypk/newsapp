@@ -1,35 +1,98 @@
 .allnews
 {
 	display: flex;
-	padding:  80px 0vw 10px 0vw;
+	padding:  59px 0vw 10px 0vw;
 	flex-wrap: wrap;
 	justify-content: center;
 }
+header
+{
+	display: flex;
+	width: 100%;
+	min-height: 70px;
+	padding: 0 5vw;
+	border: 1px solid #333;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+}
+header > a{
+	text-decoration: none;
+	color: #333;
+	flex: 1 1 100px;
+	border: 2px solid #333;
+	margin: 5px;
+	text-align: center;
+	text-transform: capitalize;
+	padding: 5px 10px;
+}
+header > a:hover
+{
+	box-shadow: 0 0 5px 1px black;
+	background-color: #333;
+	color: #eee
+}
 .news 
 {
-	flex: 0 1 300px;
+	flex: 0 1 350px;
 	text-decoration: none;
-	color: black;
+	color: #333;
+	box-shadow: 0 0 5px 1px #333;
+	margin: 10px;
+	padding: 5px;
+	background-color: #fff;
+}
+.news:hover,
+.news:focus
+{
+	box-shadow: 0 0 10px 1px black;
+	background-color: #333;
+	color: #eee
 }
 .card
 {
-	flex: 0 1 250px;
-	box-shadow: 0 0 5px 1px black;
-	margin: 10px;
-	padding: 5px;
+	flex: 0 1 350px;
+	
 }
 .card img
 {
 	width: 100%;
 	height: 100px;
 	object-fit: cover;
+
 }
 .card h2
 {
 	padding-bottom: 5px;
+	overflow: hidden;
+	height: 80px;
+	text-overflow: ellipsis;
 }
 .card p
 {
-	height: 150px;
-	overflow-y: hidden;
+	height: 90px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	
+}
+
+.filter-btn
+{
+	position: fixed;
+	bottom: 20px;
+	right: 5vw;
+	background-color: transparent;
+	border: 1px solid #333;
+	border-radius: 10px;
+	outline: none;
+	cursor: pointer;
+	height: 50px;
+	width: 50px;
+	padding: 5px;
+}
+.filter-btn img
+{
+	height: 40px;
+	width: 100%;
 }
