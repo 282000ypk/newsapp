@@ -13,7 +13,7 @@ with open("allnews.json","w") as all:
 	newsapi = NewsApiClient(api_key='63d39c686718447fb0d1ccc422c98029')
 
 	# # /v2/top-headlines
-	top_headlines = newsapi.get_everything(q='',language='en',country='in')
+	top_headlines = newsapi.get_top_headlines(q='',language='en',country='in')
 
 	# # /v2/everything
 	# print(top_headlines["totalResults"])
