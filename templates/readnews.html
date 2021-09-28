@@ -9,25 +9,22 @@
     <title>Document</title>
 </head>
 <body>
-    <!-- nav -->
-    <nav>
+    <!-- header  -->
+    <header>
         <a href="#" id="logo"><img src={{url_for('static',filename='images/logo.png')}} alt="smart news logo"></a>
         <!--<div class="btn">
             <a href="#" id="login-btn">Login</a>
             <a href="#" id="register-btn">Register</a>
         </div>-->
-    </nav>
+    </header>
     
     <!--container-->
     <div class="allnews" id="allnewsid">
-        <header>
-            <a href="#">All News</a>
-            <a href="#">Sports News</a>
-            <a href="#">Stock Market</a>
-            <a href="#">Health and Care</a>
-        </header>
+        <section>
+            <h1>Todays To headlines</h1>
+        </section>
         {%for news in data["articles"]%}
-        <a href="{{news['url']}}" class="news" target="_blank">
+        <button class="news">
             <div class="card">
                 <h2>
                     {{news['title']}}
@@ -37,15 +34,23 @@
                 <p>
                     {{news['description']}}
                 </p>
-                <h3>{{news['sentiment']}}</h3>
+                <span>Click to read More</span>
             </div>
-        </a>
+        </button>
         {% endfor %}
+        
+    </div>
+
+    <footer>
+        <h3>Mage By @Yogesh Kamble & @Nikhil Shinde</h3>
+    </footer>
+     <div class="filter-box">
         
     </div>
     <button class="filter-btn">
         <img src="{{url_for('static',filename='images/filter-solid.svg')}}">
     </button>
+
     <script type="text/javascript" src={{url_for('static',filename='readnews.js')}}></script>
 </body>
 </html>
