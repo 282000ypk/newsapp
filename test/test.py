@@ -4,7 +4,7 @@ from textblob import TextBlob
 # # Init
 newsapi = NewsApiClient(api_key='63d39c686718447fb0d1ccc422c98029')
 
-# # /v2/top-headlines
+# # /v2/top-headline
 top_headlines = newsapi.get_top_headlines(q='',language='en',country='in')
 
 # # /v2/everything
