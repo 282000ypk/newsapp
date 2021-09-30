@@ -17,7 +17,7 @@ section
 	display: flex;
 	width: 100%;
 	min-height: 70px;
-	padding: 0 5vw;
+	padding: 0 5vw;	
 	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
@@ -38,6 +38,7 @@ section
 	cursor: pointer;
 	outline: none;
 	border: none;
+	transition:  0.1s;
 }
 .news:hover,
 .news:focus

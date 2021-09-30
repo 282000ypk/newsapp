@@ -10,17 +10,15 @@ import datetime
 
 app =  Flask(__name__)
 
-	
-
 @app.route("/")
 def main():
 	return render_template("index.html")
 
 @app.route("/allnews")
 def allnews():
-	m = os.path.getmtime("allnews.json")
+	m = os.path.getmtime("allnews.json")  #428574574534
 	#print(time.ctime(m))
-	m = time.gmtime(m)
+	m = time.gmtime(m) #{}
 	c = time.time()
 	#print(time.ctime(c))
 	c = time.gmtime(c)
@@ -28,7 +26,12 @@ def allnews():
 	print(f"{m} \n {c}")
 	print((c.tm_hour - m.tm_hour)*60+(c.tm_min - m.tm_min))
 
+	flag=False
+	if(c.tm_mday != m.tm_mday):
+		flag = True
 	if((c.tm_hour - m.tm_hour)*60+(c.tm_min - m.tm_min) >= 60):
+		flag = True
+	if(flag):
 		with open("allnews.json","w") as all:
 		
 			newsapi = NewsApiClient(api_key='63d39c686718447fb0d1ccc422c98029')
@@ -71,8 +74,12 @@ def soprts_news():
 
 	print(f"{m} \n {c}")
 	print((c.tm_hour - m.tm_hour)*60+(c.tm_min - m.tm_min))
-
+	flag=False
+	if(c.tm_mday != m.tm_mday):
+		flag = True
 	if((c.tm_hour - m.tm_hour)*60+(c.tm_min - m.tm_min) >= 60):
+		flag = True
+	if(flag):
 		# code just test
 		newsapi = NewsApiClient(api_key='63d39c686718447fb0d1ccc422c98029')
 
