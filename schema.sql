@@ -1,0 +1,1 @@
+CREATE TABLE newsapp_user(id text primary key,name text,email text,profile_pic_url text)

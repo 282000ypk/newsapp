@@ -1,0 +1,3 @@
+set GOOGLE_CLIENT_ID = 533715066104-dhah0vhmvqf80g2dipia8nc89rkkfo1e.apps.googleusercontent.com
+
+set GOOGLE_CLIENT_SECRET = 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
