@@ -18,7 +18,7 @@ class User(UserMixin):
 		if not user:
 			return None
 
-		user = User(id = user[0],name = user[1], email = user[2], profile_pic_url = user[3])
+		user = User(id_ = user[0],name = user[1], email = user[2], profile_pic_url = user[3])
 
 		return user
 

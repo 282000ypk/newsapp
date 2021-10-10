@@ -8,10 +8,8 @@ import os
 import time
 import datetime
 import sqlite3
-
 from oauthlib.oauth2 import WebApplicationClient
 import requests
-
 from db import init_db_command
 from user import User
 from flask_login import (LoginManager, current_user, login_required, login_user, logout_user)
@@ -50,21 +48,21 @@ def main():
 		return render_template("index.html")
 
 
+def get_google_provider_cfg():
+	return requests.get(GOOGLE_DISCOVERY_URL).json()
+
 #routes for google login 
 # route 1
 @app.route("/login")
 def login():
 	google_provider_cfg = get_google_provider_cfg()
 	authorization_endpoint = google_provider_cfg["authorization_endpoint"]
-
 	request_uri = client.prepare_request_uri(authorization_endpoint, redirect_uri = request.base_url + "/callback", scope = ["openid", "email", "profile"])
-
 	return redirect(request_uri)
 
 @app.route("/login/callback")
 def callback():
 	code = request.args.get("code")
-
 	google_provider_cfg = get_google_provider_cfg()
 	token_endpoint = google_provider_cfg["token_endpoint"]
 	token_url, headers, body = client.prepare_token_request(
@@ -73,20 +71,16 @@ def callback():
 		redirect_url = request.base_url,
 		code = code
 		)
-
 	token_response = requests.post(
 		token_url,
 		headers = headers,
 		data = body,
 		auth = (GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET)
 		)
-
 	client.parse_request_body_response(json.dumps(token_response.json()))
-
 	userinfo_endpoint = google_provider_cfg["userinfo_endpoint"]
 	url, header, body = client.add_token(userinfo_endpoint)
 	userinfo_response = requests.get(url,headers = header, data = body)
-
 	if(userinfo_response.json().get("email_verified")):
 		unique_id = userinfo_response.json()["sub"]
 		users_email = userinfo_response.json()["email"]
@@ -94,16 +88,14 @@ def callback():
 		users_name = userinfo_response.json()["given_name"]
 	else:
 		return "User email not available or not verified by google", 400
-
 	user = User(id_ = unique_id, name = users_name, email = users_email, profile_pic_url = picture)
 	print(user)
-
 	if not User.get(unique_id):
 		User.create(unique_id, users_name, users_email, picture)
 
 	login_user(user)
-	return user.id+"<br>"+user.name+"<br>"+user.email+"<img src="+user.profile_pic_url+">";
-	#return redirect(url_for("allnews"))
+	#return user.id+"<br>"+user.name+"<br>"+user.email+"<img src="+user.profile_pic_url+">";
+	return redirect(url_for("allnews"))
 
 @app.route("/logout")
 @login_required
@@ -111,11 +103,6 @@ def logout():
 	logout_user()
 	print("logged out")
 	return redirect(url_for("main"))
-
-def get_google_provider_cfg():
-	return requests.get(GOOGLE_DISCOVERY_URL).json()
-
-
 
 
 
@@ -149,7 +136,7 @@ def allnews():
 			# # /v2/everything
 			# print(top_headlines["totalResults"])
 
-			'''i=0;
+			i=0;
 			for article in top_headlines["articles"]:
 			    testimonial = TextBlob(article["title"])
 			    if(testimonial.sentiment.polarity<0):
@@ -158,7 +145,6 @@ def allnews():
 			        print("posiitive")
 			        top_headlines["articles"][i]["sentiment"]="positive"
 			    i+=1
-			'''
 
 			#print(top_headlines)
 			# api call finished
@@ -192,14 +178,27 @@ def soprts_news():
 		# code just test
 		newsapi = NewsApiClient(api_key='63d39c686718447fb0d1ccc422c98029')
 
+
 		# # /v2/top-headlines
 		top_headlines = newsapi.get_top_headlines(category="sports", country="in")
-		# api call finished
+		
+		# sentiment analysis for all retrived news
+		i=0;
+		for article in top_headlines["articles"]:
+		    testimonial = TextBlob(article["title"])
+		    if(testimonial.sentiment.polarity<0):
+		        top_headlines["articles"][i]["sentiment"]="negative"
+		    else:
+		        print("posiitive")
+		        top_headlines["articles"][i]["sentiment"]="positive"
+		    i+=1
+			
+
+		
 		with open("sports_news.json","w") as all:
 			all.write(json.dumps(top_headlines))
 			print("json updated")
-
-	
+	#stroing a copy to server
 	sports_news=None
 	with open("sports_news.json","r") as sports:
 		sports_news = json.load(sports)
@@ -208,10 +207,7 @@ def soprts_news():
 	return render_template("readnews.html",data=sports_news)
 
 
-
-
-
-
+#to start the flask server
 if __name__ == '__main__':
 	app.run(ssl_context = "adhoc", debug=True)
 
