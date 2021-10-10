@@ -42,6 +42,7 @@ def load_user(user_id):
 
 @app.route("/")
 def main():
+	# session handling
 	if current_user.is_authenticated:
 		return redirect(url_for("allnews"))
 	else:
@@ -94,9 +95,9 @@ def callback():
 		User.create(unique_id, users_name, users_email, picture)
 
 	login_user(user)
-	#return user.id+"<br>"+user.name+"<br>"+user.email+"<img src="+user.profile_pic_url+">";
 	return redirect(url_for("allnews"))
 
+#route yo logout user.
 @app.route("/logout")
 @login_required
 def logout():
@@ -105,11 +106,15 @@ def logout():
 	return redirect(url_for("main"))
 
 
-
-
-
+# route to all news user redirected after login.
 @app.route("/allnews")
 def allnews():
+	# session handling
+	if current_user.is_authenticated:
+		pass
+	else:
+		return redirect(url_for("login"))
+
 	m = os.path.getmtime("allnews.json")  #428574574534
 	#print(time.ctime(m))
 	m = time.gmtime(m) #{}
@@ -156,10 +161,17 @@ def allnews():
 	with open("allnews.json","r") as allnews:
 		allnews_json = json.load(allnews)
 		#print(allnews_json["articles"][0])
-	return render_template("readnews.html",data=allnews_json)
+	User = current_user
+	return render_template("readnews.html",data = allnews_json, user = User)
 
 @app.route("/sports")
 def soprts_news():
+	# session handling
+	if current_user.is_authenticated:
+		pass
+	else:
+		return render_template("index.html")
+
 	m = os.path.getmtime("sports_news.json")
 	#print(time.ctime(m))
 	m = time.gmtime(m)
@@ -192,19 +204,17 @@ def soprts_news():
 		        print("posiitive")
 		        top_headlines["articles"][i]["sentiment"]="positive"
 		    i+=1
-			
-
-		
+		# write to json file on server    		
 		with open("sports_news.json","w") as all:
 			all.write(json.dumps(top_headlines))
 			print("json updated")
-	#stroing a copy to server
+	# retriving from local json  file on server
 	sports_news=None
 	with open("sports_news.json","r") as sports:
 		sports_news = json.load(sports)
 		#print(sports_news["articles"][0])
-
-	return render_template("readnews.html",data=sports_news)
+	User = current_user
+	return render_template("readnews.html",data=sports_news, user = User)
 
 
 #to start the flask server
