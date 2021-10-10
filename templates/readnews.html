@@ -24,10 +24,10 @@
     <!--container-->
     <div class="allnews" id="allnewsid">
         <section>
-            <h1>Todays To headlines</h1>
+            <h1>Todays Top headlines</h1>
         </section>
         {%for news in data["articles"]%}
-        <button class="news">
+        <button class="news {{data.sentiment}}">
             <div class="card">
                 <h2>
                     {{news['title']}}
