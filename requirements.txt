@@ -2,7 +2,6 @@ flask
 gunicorn
 newsapi-python
 textblob
-sqlite3
 oauthlib
 requests
 time
