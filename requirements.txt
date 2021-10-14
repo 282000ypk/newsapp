@@ -4,7 +4,6 @@ newsapi-python
 textblob
 oauthlib
 requests
-json
 flask_login
 numpy
 pandas
