@@ -2,7 +2,6 @@ flask
 gunicorn
 newsapi-python
 textblob
-os
 sqlite3
 oauthlib
 requests
