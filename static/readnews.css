@@ -60,6 +60,7 @@ section
 	text-overflow: ellipsis;
 	margin: 0px 0px 20px 0px;
 	text-align: left;
+	height: 100px;
 }
 
 .filter-btn

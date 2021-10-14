@@ -15,9 +15,10 @@ body
 :root
 {
     --btn-color:  #fefefe;
-    --btn-background: #343434;
+    --btn-background: #A3B4CC;
     --header-footer: #A3B4CC;
     --body-background: #121f33;
+    --btn-text:  #111;
 }
 
 /*header bar css*/
@@ -44,6 +45,7 @@ footer
    justify-content: center;
    align-items: center;
    color:  #222;
+   text-align: center;
 }
 
 #logo
@@ -84,7 +86,7 @@ footer
     text-decoration: none;
     padding: 3px 15px;
     border: 1px solid black;
-    color: var(--btn-color);
+    color: var(--btn-text);
     background: var(--btn-background);
     margin-right: 5px;
     border-radius: 10px;
@@ -94,7 +96,7 @@ footer
 .btn a:hover
 {
     color:  var(--btn-background);
-    background: var(--btn-color);
+    background: var(--btn-text);
 }
 
 .container
@@ -125,7 +127,7 @@ footer
     padding: 5px 15px;
     border: 1px solid black;
     border-radius: 10px;
-    color: var(--btn-color);
+    color: var(--btn-text);
     background: var(--btn-background);
 }
 .box1 a:hover
