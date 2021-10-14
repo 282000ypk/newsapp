@@ -1,6 +1,8 @@
 body
 {
     width: 100%;
+    background-color: var(--body-background);
+    color: #fff;
 }
 *
 {
@@ -14,7 +16,10 @@ body
 {
     --btn-color:  #fefefe;
     --btn-background: #343434;
+    --header-footer: #A3B4CC;
+    --body-background: #121f33;
 }
+
 /*header bar css*/
 header
 {
@@ -24,19 +29,21 @@ header
     height: 55px;
     width: 100%;
     position: fixed;
-    background: skyblue;
+    background: var(--header-footer);
     box-shadow: 0px 1px 10px 1px black;
     z-index: 9;
+    color:  #222;
 }
 
 footer
 {
    width: 100%;
    height: 55px;
-   background-color: skyblue;
+   background-color: var(--header-footer);
    display: flex;
    justify-content: center;
    align-items: center;
+   color:  #222;
 }
 
 #logo

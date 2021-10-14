@@ -25,16 +25,14 @@ section
 
 .news 
 {
-	--bg:  #fff;
+	--bg:  #A3B4CC;
 	--txt:  #333;
 	--shadow:  black;
 	flex: 1 1 300px;
 	color: #333;
-	box-shadow: 0 0px 10px 0.5px #333;
 	margin: 20px;
 	padding: 5px;
-	background-color: #fff;
-	border-radius: 10px;
+	background-color: var(--bg);
 	cursor: pointer;
 	outline: none;
 	border: none;
@@ -43,9 +41,6 @@ section
 .news:hover,
 .news:focus
 {
-	box-shadow: 0 0px 30px 1px var(--shadow);
-	background-color: var(--bg);
-	color: var(--txt);
 	transform:  scale(1.02);
 }
 .card
@@ -61,31 +56,10 @@ section
 }
 .card > h2
 {
-	padding-bottom: 5px;
-	overflow: hidden;
-	height: 70px;
+	padding: 20px 20px 0px 20px;
 	text-overflow: ellipsis;
-}
-.card > p
-{
-	height: 90px;
-	overflow: hidden;
+	margin: 0px 0px 20px 0px;
 	text-align: left;
-	text-overflow: ellipsis;
-}
-.card > span
-{
-	position:  absolute;
-	right:  5px;
-	bottom:  0px;
-	height:  2ch;
-	box-shadow: 0 0 5px var(--shadow);
-	margin: 2px;
-	text-align: center;
-	z-index: 2;
-	border-radius: 999px;
-	padding: 0px 2px;
-	background-color: var(--bg);
 }
 
 .filter-btn
@@ -93,7 +67,7 @@ section
 	position: fixed;
 	bottom: 20px;
 	right: 5vw;
-	background-color: skyblue;
+	background-color: #A0CECB;
 	border: 1px solid #333;
 	border-radius: 10px;
 	outline: none;
@@ -106,7 +80,7 @@ section
 .filter-btn img
 {
 	width: 100%;
-
+	filter: invert(10%);
 }
 .filter-box
 {

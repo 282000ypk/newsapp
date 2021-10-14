@@ -1,0 +1,4 @@
+Google login steps
+
+1) make a request to belwo url and fetch the json that contains gives us the url to which user is to be redirected to get authenticated.
+	https://accounts.google.com/.well-known/openid-configuration

@@ -14,6 +14,8 @@ from db import init_db_command
 from user import User
 from flask_login import (LoginManager, current_user, login_required, login_user, logout_user)
 
+from Sentiment import sentiemnt_analyze, sentiemnt_analyze1
+
 app =  Flask(__name__)
 app.secret_key = os.urandom(24)
 
@@ -59,11 +61,13 @@ def login():
 	google_provider_cfg = get_google_provider_cfg()
 	authorization_endpoint = google_provider_cfg["authorization_endpoint"]
 	request_uri = client.prepare_request_uri(authorization_endpoint, redirect_uri = request.base_url + "/callback", scope = ["openid", "email", "profile"])
+	print(request_uri)
 	return redirect(request_uri)
 
 @app.route("/login/callback")
 def callback():
 	code = request.args.get("code")
+	print(code)
 	google_provider_cfg = get_google_provider_cfg()
 	token_endpoint = google_provider_cfg["token_endpoint"]
 	token_url, headers, body = client.prepare_token_request(
@@ -90,7 +94,7 @@ def callback():
 	else:
 		return "User email not available or not verified by google", 400
 	user = User(id_ = unique_id, name = users_name, email = users_email, profile_pic_url = picture)
-	print(user)
+	
 	if not User.get(unique_id):
 		User.create(unique_id, users_name, users_email, picture)
 
@@ -115,44 +119,34 @@ def allnews():
 	else:
 		return redirect(url_for("login"))
 
-	m = os.path.getmtime("allnews.json")  #428574574534
-	#print(time.ctime(m))
-	m = time.gmtime(m) #{}
+	# to calculate last modified time of the news
+	m = os.path.getmtime("allnews.json")  #in format 428574574534
+	m = time.gmtime(m) #{} #convert format
 	c = time.time()
-	#print(time.ctime(c))
 	c = time.gmtime(c)
 
-	print(f"{m} \n {c}")
-	print((c.tm_hour - m.tm_hour)*60+(c.tm_min - m.tm_min))
-
+	# to check if news are updated wihthin last 1 hour or not if not updated set flag to True
 	flag=False
 	if(c.tm_mday != m.tm_mday):
 		flag = True
 	if((c.tm_hour - m.tm_hour)*60+(c.tm_min - m.tm_min) >= 60):
 		flag = True
+	# to force fetching and analysing news
+	flag = True
+
 	if(flag):
 		with open("allnews.json","w") as all:
-		
+			#fetch news from newsapi.org
 			newsapi = NewsApiClient(api_key='63d39c686718447fb0d1ccc422c98029')
 
-			# # /v2/top-headlines
+			# # /v2/top-headlines endpoint
 			top_headlines = newsapi.get_top_headlines(q='',language='en',country='in')
 
-			# # /v2/everything
-			# print(top_headlines["totalResults"])
+			#sentiment analysis for all fetched news
+			top_headlines = sentiemnt_analyze(top_headlines)
+			print("analysis by stanformd NLP")
 
-			i=0;
-			for article in top_headlines["articles"]:
-			    testimonial = TextBlob(article["title"])
-			    if(testimonial.sentiment.polarity<0):
-			        top_headlines["articles"][i]["sentiment"]="negative"
-			    else:
-			        print("posiitive")
-			        top_headlines["articles"][i]["sentiment"]="positive"
-			    i+=1
-
-			#print(top_headlines)
-			# api call finished
+			#over write new news to the allnews.json file
 			all.write(json.dumps(top_headlines))
 			print("new updated")
 
@@ -195,15 +189,8 @@ def soprts_news():
 		top_headlines = newsapi.get_top_headlines(category="sports", country="in")
 		
 		# sentiment analysis for all retrived news
-		i=0;
-		for article in top_headlines["articles"]:
-		    testimonial = TextBlob(article["title"])
-		    if(testimonial.sentiment.polarity<0):
-		        top_headlines["articles"][i]["sentiment"]="negative"
-		    else:
-		        print("posiitive")
-		        top_headlines["articles"][i]["sentiment"]="positive"
-		    i+=1
+		top_headlines = sentiemnt_analyze(top_headlines)
+
 		# write to json file on server    		
 		with open("sports_news.json","w") as all:
 			all.write(json.dumps(top_headlines))
