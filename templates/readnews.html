@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href={{url_for('static',filename='style.css')}}>
     <link rel="stylesheet" href={{url_for('static',filename='readnews.css')}}>
-    <title>News</title>
+    <link rel="favicon" href={{url_for('static',filename='images/logo.png')}}>
+    <title>Smart News</title>
 </head>
 <body>
     <!-- header  -->
@@ -16,7 +17,7 @@
             <!--<a href="#" id="login-btn">Login</a>
             <a href="#" id="register-btn">Register</a>
             -->
-            <span>Hi {{user.name}}</span>
+            <span>Hello {{user.name}}</span>
             <img src="{{user.profile_pic_url}}">
         </div>
     </header>

@@ -20,6 +20,9 @@ app =  Flask(__name__)
 app.secret_key = os.urandom(24)
 
 # google login implementation code
+
+# google login secret keys 
+
 #GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", None)
 GOOGLE_CLIENT_ID = "533715066104-dhah0vhmvqf80g2dipia8nc89rkkfo1e.apps.googleusercontent.com"
 #GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", None)
@@ -46,7 +49,7 @@ def load_user(user_id):
 def main():
 	# session handling
 	if current_user.is_authenticated:
-		return redirect(url_for("allnews"))
+		return redirect(url_for("top_headlines"))
 	else:
 		return render_template("index.html")
 
@@ -55,7 +58,8 @@ def get_google_provider_cfg():
 	return requests.get(GOOGLE_DISCOVERY_URL).json()
 
 #routes for google login 
-# route 1
+
+#redirect user to google login page.
 @app.route("/login")
 def login():
 	google_provider_cfg = get_google_provider_cfg()
@@ -64,6 +68,7 @@ def login():
 	print(request_uri)
 	return redirect(request_uri)
 
+# response received from google as callback
 @app.route("/login/callback")
 def callback():
 	code = request.args.get("code")
@@ -99,9 +104,9 @@ def callback():
 		User.create(unique_id, users_name, users_email, picture)
 
 	login_user(user)
-	return redirect(url_for("allnews"))
+	return redirect(url_for("top_headlines"))
 
-#route yo logout user.
+#route to logout user.
 @app.route("/logout")
 @login_required
 def logout():
@@ -110,10 +115,9 @@ def logout():
 	return redirect(url_for("main"))
 
 
-# route to all news user redirected after login.
-@app.route("/allnews")
-def allnews():
-	# session handling
+# route to top headlines user redirected after login.
+@app.route("/top_headlines")
+def top_headlines():
 	if current_user.is_authenticated:
 		pass
 	else:
@@ -132,7 +136,7 @@ def allnews():
 	if((c.tm_hour - m.tm_hour)*60+(c.tm_min - m.tm_min) >= 60):
 		flag = True
 	# to force fetching and analysing news
-	flag = True
+	# flag = True
 
 	if(flag):
 		with open("allnews.json","w") as all:
