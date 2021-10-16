@@ -2,13 +2,8 @@ flask
 gunicorn
 newsapi-python
 textblob
-os
-sqlite3
 oauthlib
 requests
-time
-datetime
-json
 flask_login
 numpy
 pandas
