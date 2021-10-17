@@ -7,10 +7,8 @@ import json
 import os
 import time
 import datetime
-import sqlite3
 from oauthlib.oauth2 import WebApplicationClient
 import requests
-from db import init_db_command
 from user import User
 from flask_login import (LoginManager, current_user, login_required, login_user, logout_user)
 
@@ -32,12 +30,6 @@ GOOGLE_DISCOVERY_URL = "https://accounts.google.com/.well-known/openid-configura
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-
-try:
-	init_db_command()
-	print("db created")
-except sqlite3.OperationalError:
-	print("already created")
 
 client = WebApplicationClient(GOOGLE_CLIENT_ID)
 
@@ -98,13 +90,19 @@ def callback():
 		users_name = userinfo_response.json()["given_name"]
 	else:
 		return "User email not available or not verified by google", 400
-	user = User(id_ = unique_id, name = users_name, email = users_email, profile_pic_url = picture)
+	user = User(id_ = unique_id, name = users_name, email = users_email, profile_pic_url = picture, user_type = "USER")
 	
-	if not User.get(unique_id):
-		User.create(unique_id, users_name, users_email, picture)
+	temp_user = User.get(unique_id)
+	redirect_to = "top_headlines"
 
+	if not temp_user:
+		User.create(unique_id, users_name, users_email, picture)
+		redirect_to = "top_headlines"
+	else:
+		if(temp_user.user_type == 'ADMIN'):
+			redirect_to = "admin"
 	login_user(user)
-	return redirect(url_for("top_headlines"))
+	return redirect(url_for(redirect_to))
 
 #route to logout user.
 @app.route("/logout")
@@ -113,6 +111,15 @@ def logout():
 	logout_user()
 	print("logged out")
 	return redirect(url_for("main"))
+
+@app.route("/admin")
+def admin():
+	return render_template("admin.html")
+
+@app.route("/admin_dashboard")
+def admin_dashboard():
+	users = User.get_all()
+	return render_template("admin_dashboard.html", data = users)
 
 
 # route to top headlines user redirected after login.

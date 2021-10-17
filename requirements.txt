@@ -8,3 +8,4 @@ flask_login
 numpy
 pandas
 pycorenlp
+psycopg2
