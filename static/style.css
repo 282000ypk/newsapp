@@ -1,3 +1,4 @@
+
 body
 {
     width: 100%;
@@ -15,9 +16,9 @@ body
 :root
 {
     --btn-color:  #fefefe;
-    --btn-background: #A3B4CC;
+    --btn-background: #f7ce38;
     --header-footer: #A3B4CC;
-    --body-background: #121f33;
+    --body-background: #023246;
     --btn-text:  #111;
 }
 
@@ -129,11 +130,12 @@ footer
     border-radius: 10px;
     color: var(--btn-text);
     background: var(--btn-background);
+    font-weight: 444;
 }
 .box1 a:hover
 {
     color: var(--btn-background);
-    background:  var(--btn-color);
+    background:  var(--btn-text);
 }
 
 .box2

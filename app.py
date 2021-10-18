@@ -167,10 +167,10 @@ def top_headlines():
 		allnews_json = json.load(allnews)
 		#print(allnews_json["articles"][0])
 	User = current_user
-	return render_template("readnews.html",data = allnews_json, user = User)
+	return render_template("readnews.html",data = allnews_json, user = User, category = "Top Headlines")
 
 @app.route("/sports")
-def soprts_news():
+def sports_news():
 	# session handling
 	if current_user.is_authenticated:
 		pass
@@ -212,7 +212,7 @@ def soprts_news():
 		sports_news = json.load(sports)
 		#print(sports_news["articles"][0])
 	User = current_user
-	return render_template("readnews.html",data=sports_news, user = User)
+	return render_template("readnews.html",data=sports_news, user = User, category = "Sports News")
 
 
 #to start the flask server

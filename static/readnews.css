@@ -1,3 +1,4 @@
+
 body
 {
 	height: 100vh;
@@ -28,7 +29,7 @@ section
 	--bg:  #A3B4CC;
 	--txt:  #333;
 	--shadow:  black;
-	flex: 1 1 300px;
+	flex: 1 0 300px;
 	color: #333;
 	margin: 20px;
 	padding: 5px;
@@ -50,9 +51,63 @@ section
 .card > img
 {
 	width: 100%;
-	height: 200px;
+	object-fit: cover;
+}
+.fullscreen
+{
+	position: fixed;
+	top: 70px;
+	margin: auto;
+	border: 2px solid;
+	width: 500px;
+	height: 80vh;
+	overflow: auto;
+	padding: 5px;
+	z-index: 999;
+	background-color: green;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	display: none;
+}
+
+.fullscreen > img
+{
+	width: 100%;
 	object-fit: cover;
 
+}
+.fullscreen span
+{
+	flex: 1 1 100%;
+	color:  #444;
+	text-align: left;
+	display: block;
+	margin:  20px 0px 10px 0px;
+	font-weight: 444;
+
+}
+.fullscreen p
+{
+	flex: 1 1 100%;
+	font-size: 1.3em;
+	text-align: justify;
+	font-weight: 555;
+}
+.fullscreen a
+{
+
+	font-size: 1.2em;
+	width: 200px;
+	height: 40px;
+	text-decoration: none;
+	border: 2px solid red;
+	background-color: red;
+	color: black;
+	border-radius: 999px;
+	padding: 5px 10px 5px 10px;
+	text-align: center;
 }
 .card > h2
 {
@@ -60,22 +115,22 @@ section
 	text-overflow: ellipsis;
 	margin: 0px 0px 20px 0px;
 	text-align: left;
-	height: 100px;
 }
 
 .filter-btn
 {
 	position: fixed;
-	bottom: 20px;
-	right: 5vw;
-	background-color: #A0CECB;
-	border: 1px solid #333;
-	border-radius: 10px;
+	bottom: 30px;
+	right: 6vw;
+	background-color: #f7ce38;
+	box-shadow: 0 0 0px 20px var(--body-background);
+	border-radius: 50%;
 	outline: none;
+	border: none;
 	cursor: pointer;
-	height: 50px;
-	width: 50px;
-	padding: 5px;
+	height: 60px;
+	width: 60px;
+	padding: 15px;
 	z-index: 999;
 }
 .filter-btn img
@@ -87,26 +142,66 @@ section
 {
 	display:  none;
 	position: fixed;
-	bottom: 20px;
-	right: 5vw;
-	height:  300px;
+	bottom: 30px;
+	right: 6vw;
+	min-height:  300px;
 	width: 200px;
-	background-color: red;
+	background-color: var(--body-background);
 	z-index: 999;
-	border-radius: 20px;
+	border-radius: 5px 5px 50px 5px;
+	box-shadow: 0 0 0 20px var(--body-background);
+	padding: 10px 5vw;
+	color: #fff;
+}
+.filter-box button
+{
+	position: absolute;
+	top:  2px;
+	right: 10px;
+	font-size: 1.5em;
+	background: transparent;
+	color:  #f7ce38;
+	font-weight: 999;
+	outline: none;
+	border: none;
+	cursor: pointer;
+}
+.filter-btn:active
+{
+	transform:  scale(1.02);
+}
+.expand
+{
+	height: 200px;
+	width: 80vw;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+}
+.expand a
+{
+	flex:  0 1 95%;
+	text-decoration: none;
+	color: #fff;
+	font-weight: 666;
+	font-size: 1.2em;
+	padding-left: 10px;
+}
+.expand span
+{
+	flex:  0 1 5%;
+}
+.expand label
+{	
+	flex: 1 1 95%;
+	font-size: 1.1em;
+	font-weight: 555;
+	padding-left: 10px;
+}
+.expand input
+{
+	flex: 1 1 5%;
+	height: 1.5em;
 }
 
-@keyframes expand-box
-{
-	0%
-	{
-		displa: inline;
-		width:  0px;
-		height:  0px;
-	}
-	100%
-	{
-		width:  200px;
-		height:  300px;
-	}
-}

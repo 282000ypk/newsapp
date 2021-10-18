@@ -25,34 +25,64 @@
     <!--container-->
     <div class="allnews" id="allnewsid">
         <section>
-            <h1>Todays Top headlines</h1>
+            <h1>{{category}}</h1>
         </section>
         {%for news in data["articles"]%}
-        <button class="news {{data.sentiment}}">
+        <button class="news {{news['sentiment']}}" 
+            onclick="">
+            <!--always visible part-->
             <div class="card">
                 <img src="{{news['urlToImage']}}" alt="news description" loading="lazy">
                 <h2>
                     {{news['title']}}
                 </h2>
-                <h2>
-                    {{news['sentiment']}}
-                </h2>
+                
             </div>
+            
+            
+
         </button>
         {% endfor %}
-        
+        {%for news in data["articles"]%}
+        <!--visible on click-->
+            <div class="fullscreen" id="{{i}}">
+                <h2>
+                    {{news['title']}}
+                </h2>
+                <img src="{{news['urlToImage']}}" alt="news description" loading="lazy">
+                <div>
+                    <span>Description:</span>
+                    <p>{{news['description']}}</p>
+                </div>
+                <div>
+                    <span>Content</span>
+                    <p>{{news['content']}}</p>
+                </div>
+                <a href="{{news['url']}}" target="__blank">Read Full Article</a>
+            </div>
+        {% endfor %}
     </div>
 
     <footer>
         <h3>Made By @Yogesh Kamble & @Nikhil Shinde</h3>
     </footer>
-     <div class="filter-box">
-        
-    </div>
-    <button class="filter-btn">
-        <img src="{{url_for('static',filename='images/filter-solid.svg')}}">
 
+
+    <div class="filter-box">
+         <button onclick="collapsebox()">X</button>
+         <input type="checkbox" id="negative-filter" onchange="filterbyanalysis()">
+         <label for="negative-filter">Filter Negaive News By Analysis</label>
+         <input type="checkbox" id="vote-filter">
+         <label for="vote-filter">Filter Negative News By Votes</label>
+         <span></span><a href="{{url_for('sports_news')}}">Sports News</a> 
+         <span></span><a href="{{url_for('top_headlines')}}">Top Headlines</a>
+         <span></span><a href="{{url_for('top_headlines')}}">All News</a>
+         <span></span><a href="{{url_for('logout')}}">Logout</a>
+    </div>
+    <button class="filter-btn" onclick="expandbox()">
+        <img src="{{url_for('static',filename='images/menu.svg')}}">
     </button>
+
 
     <script type="text/javascript" src={{url_for('static',filename='readnews.js')}}></script>
 </body>
