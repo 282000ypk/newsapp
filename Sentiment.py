@@ -29,6 +29,7 @@ def sentiemnt_analyze1(top_headlines):
 	nlp = StanfordCoreNLP('http://localhost:9000')
 	i=0;
 	for article in top_headlines["articles"]:
-		top_headlines["articles"][i]["sentiment"]=stanford_sentiment(article["title"].split("-")[0])
+		top_headlines["articles"][i]["sentiment"] = stanford_sentiment(article["title"].split("-")[0])
+		top_headlines["articles"][i]["news_id"] = i+"news_id"
 		i+=1
 	return top_headlines;

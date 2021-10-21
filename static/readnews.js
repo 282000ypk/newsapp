@@ -35,3 +35,8 @@ function load(title)
     alert("#"+title)
     document.querySelector("#"+title).classList.toggle("view")
 }
+
+function vote()
+{
+    
+}

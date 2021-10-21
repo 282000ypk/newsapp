@@ -11,7 +11,7 @@ from oauthlib.oauth2 import WebApplicationClient
 import requests
 from user import User
 from flask_login import (LoginManager, current_user, login_required, login_user, logout_user)
-
+from news import News
 from Sentiment import sentiemnt_analyze, sentiemnt_analyze1
 
 app =  Flask(__name__)
@@ -121,6 +121,23 @@ def admin_dashboard():
 	users = User.get_all()
 	return render_template("admin_dashboard.html", data = users)
 
+@app.route("/change_preference/", methods = ['POST', 'GET'])
+def change_preference():
+	if request.method == 'POST' :
+		language = request.form["language"]
+		country = request.form["country"]
+	else:
+		language = request.form["language"]
+		country = request.form["country"]
+	user = current_user
+	user.set_preference(language, country)
+
+@app.route("/vote_news/<title>/<polarity>")
+def vote_news(title, polarity):
+	print(title, polarity)
+	user = current_user
+	response = user.vote_news(title, polarity)
+	return "{'status': "+str(response)+"}"
 
 # route to top headlines user redirected after login.
 @app.route("/top_headlines")
