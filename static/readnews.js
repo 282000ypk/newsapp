@@ -36,7 +36,14 @@ function load(title)
     document.querySelector("#"+title).classList.toggle("view")
 }
 
-function vote()
+function vote(apiurl)
 {
-    
+    alert(apiurl)
+    /*fetch(apiurl,"GET")
+    .then(()=>{
+        alert("voted successfully")
+    })
+    .catch(()=>{
+        alert("voting error")
+    })*/
 }

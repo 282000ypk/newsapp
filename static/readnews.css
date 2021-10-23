@@ -52,6 +52,7 @@ section
 {
 	width: 100%;
 	object-fit: cover;
+	height: 50vh;
 }
 .fullscreen
 {
