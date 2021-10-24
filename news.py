@@ -42,9 +42,10 @@ class News():
 		return news
 
 	@staticmethod
-	def get_news_by_category(category, language, country):
+	def get_news_by_category(category, country, language):
 		newsapi = NewsApiClient(api_key='63d39c686718447fb0d1ccc422c98029')
-		top_headlines = newsapi.get_top_headlines(category = category, country = country, language = language)
+		news = newsapi.get_top_headlines(category = category, country = country, language = language)
+		return news
 
 
 	@staticmethod

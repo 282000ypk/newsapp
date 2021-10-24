@@ -148,7 +148,7 @@ def top_headlines():
 		return redirect(url_for("login"))
 
 	# to calculate last modified time of the news
-	m = os.path.getmtime("allnews.json")  #in format 428574574534
+	m = os.path.getmtime("top_headlines.json")  #in format 428574574534
 	m = time.gmtime(m) #{} #convert format
 	c = time.time()
 	c = time.gmtime(c)
@@ -159,32 +159,33 @@ def top_headlines():
 		flag = True
 	if((c.tm_hour - m.tm_hour)*60+(c.tm_min - m.tm_min) >= 60):
 		flag = True
+	
 	# to force fetching and analysing news
-	# flag = True
+	flag = True
 
+	top_headlines=None
 	if(flag):
-		with open("allnews.json","w") as all:
-			#fetch news from newsapi.org
-			newsapi = NewsApiClient(api_key='63d39c686718447fb0d1ccc422c98029')
-
-			# # /v2/top-headlines endpoint
-			top_headlines = newsapi.get_top_headlines(q='',language='en',country='in')
+		with open("top_headlines.json","w") as all:
+			#fetch news from newsapi.org using news.py
+			top_headlines = News.get_top_headlines("en","in")
 
 			#sentiment analysis for all fetched news
 			top_headlines = sentiemnt_analyze(top_headlines)
-			print("analysis by stanformd NLP")
+
+			#top_headlines = sentiemnt_analyze1(top_headlines)
+			#print("analysis by stanformd NLP")
 
 			#over write new news to the allnews.json file
 			all.write(json.dumps(top_headlines))
 			print("new updated")
 
 
-	allnews_json=None
-	with open("allnews.json","r") as allnews:
-		allnews_json = json.load(allnews)
-		#print(allnews_json["articles"][0])
+	if(not flag):
+		with open("top_headlines.json","r") as allnews:
+			top_headlines = json.load(allnews)
+
 	User = current_user
-	return render_template("readnews.html",data = allnews_json, user = User, category = "Top Headlines")
+	return render_template("readnews.html",data = top_headlines, user = User, category = "Top Headlines")
 
 @app.route("/sports")
 def sports_news():
@@ -208,26 +209,31 @@ def sports_news():
 		flag = True
 	if((c.tm_hour - m.tm_hour)*60+(c.tm_min - m.tm_min) >= 60):
 		flag = True
+	# to force updating news
+	flag = True
+
+	sports_news = None
+
 	if(flag):
-		# code just test
-		newsapi = NewsApiClient(api_key='63d39c686718447fb0d1ccc422c98029')
-
-
-		# # /v2/top-headlines
-		top_headlines = newsapi.get_top_headlines(category="sports", country="in")
-		
-		# sentiment analysis for all retrived news
-		top_headlines = sentiemnt_analyze(top_headlines)
-
-		# write to json file on server    		
 		with open("sports_news.json","w") as all:
-			all.write(json.dumps(top_headlines))
-			print("json updated")
-	# retriving from local json  file on server
-	sports_news=None
-	with open("sports_news.json","r") as sports:
-		sports_news = json.load(sports)
-		#print(sports_news["articles"][0])
+			#fetch news from newsapi.org using news.py
+			sports_news = News.get_news_by_category("sports","in","en")
+
+			#sentiment analysis for all fetched news
+			sports_news = sentiemnt_analyze(sports_news)
+
+			#top_headlines = sentiemnt_analyze1(top_headlines)
+			#print("analysis by stanformd NLP")
+
+			#over write new news to the sports_news.json file
+			all.write(json.dumps(sports_news))
+			print("new updated")
+
+
+	if(not flag):
+		with open("sports_news.json","r") as sports_news:
+			sports_news = json.load(sports_news)
+
 	User = current_user
 	return render_template("readnews.html",data=sports_news, user = User, category = "Sports News")
 
