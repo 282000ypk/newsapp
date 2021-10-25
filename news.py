@@ -1,6 +1,7 @@
 import json
 import psycopg2
 from newsapi import NewsApiClient
+from cred import NEWS_API_KEY
 
 class News():
 	def __init__(self, title, positive_vote, negative_vote, ):
@@ -31,19 +32,19 @@ class News():
 
 	@staticmethod
 	def search_news(query):
-		newsapi = NewsApiClient(api_key='63d39c686718447fb0d1ccc422c98029')
+		newsapi = NewsApiClient(api_key=NEWS_API_KEY)
 		news = newsapi.get_everything(q=query)
 		return news
 
 	@staticmethod
 	def get_top_headlines(language, country):
-		newsapi = NewsApiClient(api_key='63d39c686718447fb0d1ccc422c98029')
+		newsapi = NewsApiClient(api_key=NEWS_API_KEY)
 		news = newsapi.get_top_headlines(language=language, country=country)
 		return news
 
 	@staticmethod
 	def get_news_by_category(category, country, language):
-		newsapi = NewsApiClient(api_key='63d39c686718447fb0d1ccc422c98029')
+		newsapi = NewsApiClient(api_key=NEWS_API_KEY)
 		news = newsapi.get_top_headlines(category = category, country = country, language = language)
 		return news
 

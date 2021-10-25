@@ -13,6 +13,7 @@ from user import User
 from flask_login import (LoginManager, current_user, login_required, login_user, logout_user)
 from news import News
 from Sentiment import sentiemnt_analyze, sentiemnt_analyze1
+from cred import GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_DISCOVERY_URL
 
 app =  Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -22,7 +23,6 @@ app.secret_key = os.urandom(24)
 # google login secret keys 
 
 #GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", None)
-GOOGLE_CLIENT_ID = "533715066104-dhah0vhmvqf80g2dipia8nc89rkkfo1e.apps.googleusercontent.com"
 #GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", None)
 GOOGLE_CLIENT_SECRET = "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"
 GOOGLE_DISCOVERY_URL = "https://accounts.google.com/.well-known/openid-configuration"
@@ -148,11 +148,10 @@ def top_headlines():
 		return redirect(url_for("login"))
 
 	# to calculate last modified time of the news
-	m = os.path.getmtime("top_headlines.json")  #in format 428574574534
+	m = os.path.getmtime("json/top_headlines.json")  #in format 428574574534
 	m = time.gmtime(m) #{} #convert format
 	c = time.time()
 	c = time.gmtime(c)
-
 	# to check if news are updated wihthin last 1 hour or not if not updated set flag to True
 	flag=False
 	if(c.tm_mday != m.tm_mday):
@@ -161,7 +160,7 @@ def top_headlines():
 		flag = True
 	
 	# to force fetching and analysing news
-	flag = True
+	# flag = True
 
 	top_headlines=None
 	if(flag):
@@ -210,7 +209,7 @@ def sports_news():
 	if((c.tm_hour - m.tm_hour)*60+(c.tm_min - m.tm_min) >= 60):
 		flag = True
 	# to force updating news
-	flag = True
+	# flag = True
 
 	sports_news = None
 
@@ -237,6 +236,56 @@ def sports_news():
 	User = current_user
 	return render_template("readnews.html",data=sports_news, user = User, category = "Sports News")
 
+@app.route("/news/<category>")
+def news_by_category(category):
+	# session handling
+	if current_user.is_authenticated:
+		pass
+	else:
+		return render_template("index.html")
+
+	m = os.path.getmtime(category+".json")
+	#print(time.ctime(m))
+	m = time.gmtime(m)
+	c = time.time()
+	#print(time.ctime(c))
+	c = time.gmtime(c)
+
+	print(f"{m} \n {c}")
+	print((c.tm_hour - m.tm_hour)*60+(c.tm_min - m.tm_min))
+	flag=False
+	if(c.tm_mday != m.tm_mday):
+		flag = True
+	if((c.tm_hour - m.tm_hour)*60+(c.tm_min - m.tm_min) >= 60):
+		flag = True
+	# to force updating news
+	# flag = True
+
+	sports_news = None
+
+	if(flag):
+		with open(category+".json","w") as all:
+			#fetch news from newsapi.org using news.py
+			loaded_news = News.get_news_by_category(category,"in","en")
+
+			#sentiment analysis for all fetched news
+			loaded_news = sentiemnt_analyze(loaded_news)
+
+			#top_headlines = sentiemnt_analyze1(top_headlines)
+			#print("analysis by stanformd NLP")
+
+			#over write new news to the sports_news.json file
+			all.write(json.dumps(loaded_news))
+			print("new updated")
+
+
+	if(not flag):
+		with open(category+".json","r") as news:
+			loaded_news = json.load(news)
+			print("loaded")
+
+	User = current_user
+	return render_template("readnews.html",data=loaded_news, user = User, category = category+"News")
 
 #to start the flask server
 if __name__ == '__main__':

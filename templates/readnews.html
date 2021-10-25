@@ -31,7 +31,11 @@
         <button class="news {{news['sentiment']}}" 
             onclick="" id="{{news['news_id']}}">
             <!--always visible part-->
-            <div class="card">
+            {%if news['sentiment'] == 'positive'%}
+            <div class="card positive-bar">
+            {%else%}
+            <div class="card negative-bar">
+            {%endif%}
                 <img src="{{news['urlToImage']}}" alt="news description" loading="lazy">
                 <h2>
                     {{news['title']}}
@@ -73,7 +77,12 @@
          <label for="vote-filter">Filter Negative News By Votes</label>
          <span></span><a href="{{url_for('sports_news')}}">Sports News</a> 
          <span></span><a href="{{url_for('top_headlines')}}">Top Headlines</a>
-         <span></span><a href="{{url_for('top_headlines')}}">All News</a>
+         <span></span><a href="../news/business">business News</a>
+         <span></span><a href="../news/entertainment">entertainment News</a>
+         <span></span><a href="../news/health">health News</a>
+         <span></span><a href="../news/science">science News</a>
+         <span></span><a href="../news/technology">technology News</a>
+         <span></span><a href="../news/general">general News</a>
          <span></span><a href="{{url_for('logout')}}">Logout</a>
     </div>
     <button class="filter-btn" onclick="expandbox()">

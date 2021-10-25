@@ -40,10 +40,13 @@ section
 	height: 50vh;
 	overflow: hidden;
 }
-.news:hover,
-.news:focus
+
+	
+
+.news:hover, .news:focus
 {
 	transform:  scale(1.02);
+	filter: brightness(1);
 }
 .card
 {
@@ -57,7 +60,7 @@ section
 {
 	position: absolute;
 	z-index: 2;
-	background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.3));
+	background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2));
 	color: #fff;
 	bottom: 0px;
 	margin: 0px;
@@ -74,7 +77,20 @@ section
 	width: 100%;
 	object-fit: cover;
 	height: 50vh;
+	filter: brightness(0.7);
 }
+
+.positive-bar
+{
+	border: none;
+	border-left: 5px solid yellow;
+}
+.negative-bar
+{
+	border: none;
+	border-left: 5px solid red;
+}
+
 .fullscreen
 {
 	position: fixed;
@@ -159,7 +175,7 @@ section
 	position: fixed;
 	bottom: 30px;
 	right: 6vw;
-	min-height:  300px;
+	min-height:  400px;
 	width: 200px;
 	background-color: var(--body-background);
 	z-index: 999;
@@ -202,6 +218,7 @@ section
 	font-weight: 666;
 	font-size: 1.2em;
 	padding-left: 10px;
+	padding-top: 5px;
 }
 .expand span
 {
@@ -209,7 +226,7 @@ section
 }
 .expand label
 {	
-	flex: 1 1 95%;
+	flex: 1 1 94%;
 	font-size: 1.1em;
 	font-weight: 555;
 	padding-left: 10px;
@@ -220,3 +237,8 @@ section
 	height: 1.5em;
 }
 
+.filter-box a:hover,
+.filter-box a:focus
+{
+	border: 1px solid #fff;
+}
