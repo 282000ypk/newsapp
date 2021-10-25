@@ -40,7 +40,12 @@
                 <h2>
                     {{news['title']}}
                 </h2>
-                
+                <div class="votes">
+                    <span class="positive_votes {{news['news_id']}}">1</span>
+                    <div class="positive-vote-btn" onclick="vote('{{news['news_id']}}','positive')">+</div>
+                    <span class="negative_votes {{news['news_id']}}">3</span>             
+                    <div class="negative-vote-btn" onclick="vote('{{news['news_id']}}','negative')">-</div>
+                </div>
             </div>
         </button>
         {% endfor %}

@@ -43,11 +43,7 @@ section
 
 	
 
-.news:hover, .news:focus
-{
-	transform:  scale(1.02);
-	filter: brightness(1);
-}
+
 .card
 {
 	position: relative;
@@ -78,6 +74,26 @@ section
 	object-fit: cover;
 	height: 50vh;
 	filter: brightness(0.7);
+	transition: 0.2s;
+	z-index: -3;
+}
+.card > img:hover
+{
+	filter: brightness(1.0);
+}
+.news:hover, 
+.news:focus
+{
+	transform:  scale(1.02);
+}
+
+.votes
+{
+	z-index: 333;
+	background-color: white;}
+.votes span
+{
+
 }
 
 .positive-bar

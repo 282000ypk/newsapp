@@ -93,8 +93,8 @@ class User(UserMixin):
 		cursor.execute(query)
 		cursor.execute("commit")
 
-	def check_vote(self, title):
-		query = "select * from news where title = '"+title+"' and user_id='"+self.id+"'"
+	def check_vote(self, news_id):
+		query = "select * from news where news_id = '"+news_id+"' and user_id='"+self.id+"'"
 		conn = psycopg2.connect(
     		host="localhost",
     		database="smartnewsapp",
@@ -111,7 +111,7 @@ class User(UserMixin):
 			return True	
 
 
-	def vote_news(self, title, polarity):
+	def vote_news(self, news_id, polarity):
 		title = title.replace("'","''")
 		title = title.replace("\"","''")
 		if polarity=="positive":
@@ -121,9 +121,9 @@ class User(UserMixin):
 			positive = 0
 			negative = 1
 		if not self.check_vote(title):
-			query = "insert into news values('"+title+"', "+str(positive)+","+str(negative)+", '"+self.id+"')"
+			query = "insert into news values('"+news_id+"', "+str(positive)+","+str(negative)+", '"+self.id+"')"
 		else:
-			query = "update news set positive_vote = "+str(positive)+", negative_vote = "+str(negative)+" where user_id = '"+self.id+"' and title = '"+title+"'"
+			query = "update news set positive_vote = "+str(positive)+", negative_vote = "+str(negative)+" where user_id = '"+self.id+"' and news_id = '"+news_id+"'"
 		print(query)
 		#connect to DB
 		conn = psycopg2.connect(

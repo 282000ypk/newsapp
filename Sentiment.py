@@ -9,13 +9,14 @@ def sentiemnt_analyze(top_headlines):
 	i=0;
 	for article in top_headlines["articles"]:
 	    testimonial = TextBlob(article["title"].split("-")[0])
-	    print(article["title"].split("-")[0])
+	    #print(article["title"].split("-")[0])
 	    if(testimonial.sentiment.polarity<0):
 	        top_headlines["articles"][i]["sentiment"]="negative"
 	    if(testimonial.sentiment.polarity == 0):
 	    	top_headlines["articles"][i]["sentiment"]="neutral"
 	    else:
 	        top_headlines["articles"][i]["sentiment"]="positive"
+	    top_headlines["articles"][i]["news_id"] = i+article["title"].split(" ")[0]
 	    i+=1
 	return top_headlines;
 

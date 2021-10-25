@@ -148,10 +148,11 @@ def top_headlines():
 		return redirect(url_for("login"))
 
 	# to calculate last modified time of the news
-	m = os.path.getmtime("json/top_headlines.json")  #in format 428574574534
+	m = os.path.getmtime("top_headlines.json")  #in format 428574574534
 	m = time.gmtime(m) #{} #convert format
 	c = time.time()
 	c = time.gmtime(c)
+	print(f"{m} \n {c}")
 	# to check if news are updated wihthin last 1 hour or not if not updated set flag to True
 	flag=False
 	if(c.tm_mday != m.tm_mday):

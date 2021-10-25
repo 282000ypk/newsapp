@@ -36,14 +36,14 @@ function load(title)
     document.querySelector("#"+title).classList.toggle("view")
 }
 
-function vote(apiurl)
+function vote(news_id, vote)
 {
-    alert(apiurl)
-    /*fetch(apiurl,"GET")
+    alert("./vote_news/" + news_id + "/" + vote)
+    fetch("./vote_news/" + news_id + "/" + vote,"GET")
     .then(()=>{
         alert("voted successfully")
     })
     .catch(()=>{
         alert("voting error")
-    })*/
+    })
 }
