@@ -112,16 +112,16 @@ class User(UserMixin):
 
 
 	def vote_news(self, news_id, polarity):
-		title = title.replace("'","''")
-		title = title.replace("\"","''")
+		news_id = news_id.replace("'"," ")
+		news_id = news_id.replace("\""," ")
 		if polarity=="positive":
 			positive = 1
 			negative = 0
 		if polarity=="negative":
 			positive = 0
 			negative = 1
-		if not self.check_vote(title):
-			query = "insert into news values('"+news_id+"', "+str(positive)+","+str(negative)+", '"+self.id+"')"
+		if not self.check_vote(news_id):
+			query = "insert into news values("+str(positive)+","+str(negative)+", '"+self.id+"','"+news_id+"')"
 		else:
 			query = "update news set positive_vote = "+str(positive)+", negative_vote = "+str(negative)+" where user_id = '"+self.id+"' and news_id = '"+news_id+"'"
 		print(query)
@@ -135,5 +135,5 @@ class User(UserMixin):
 		cursor = conn.cursor()
 		cursor.execute(query)
 		cursor.execute("commit")
-		return title
+		return news_id
 		

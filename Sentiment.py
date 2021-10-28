@@ -16,7 +16,7 @@ def sentiemnt_analyze(top_headlines):
 	    	top_headlines["articles"][i]["sentiment"]="neutral"
 	    else:
 	        top_headlines["articles"][i]["sentiment"]="positive"
-	    top_headlines["articles"][i]["news_id"] = i+article["title"].split(" ")[0]
+	    top_headlines["articles"][i]["news_id"] = "news"+str(i)
 	    i+=1
 	return top_headlines;
 

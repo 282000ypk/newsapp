@@ -38,12 +38,12 @@ function load(title)
 
 function vote(news_id, vote)
 {
-    alert("./vote_news/" + news_id + "/" + vote)
-    fetch("./vote_news/" + news_id + "/" + vote,"GET")
-    .then(()=>{
+    url = "https://localhost:5000/vote_news/" + news_id + "/" + vote
+    x = fetch(url, {method: 'get'})
+    x.then(()=>{
         alert("voted successfully")
     })
-    .catch(()=>{
-        alert("voting error")
+    x.catch(()=>{
+        alert("voting error"+x.JSON)
     })
 }
