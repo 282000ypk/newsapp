@@ -1,3 +1,6 @@
+
+
+
 function expandbox()
 {
     document.querySelector(".filter-box").classList.toggle("expand")
@@ -47,3 +50,27 @@ function vote(news_id, vote)
         alert("voting error"+x.JSON)
     })
 }
+
+function update_votes(news_id)
+{
+    url = "https://localhost:5000/get_votes/" + news_id
+    x = fetch(url, {method: 'get'})
+    x.then(response=> response.json()).then(data => {
+        console.log(data)
+        positive_num = document.querySelector(".positive_votes."+news_id).innerText = "Positive Votes: " + data['positive_vote']
+        negative_num = document.querySelector(".negative_votes."+news_id).innerText = "Positive Votes: " + data['negative_vote']
+        console.log("succcess"+ negative_num)
+    })
+}
+
+function fullview(news_id)
+{
+    news = document.querySelectorAll(".news")
+    news.forEach(function(n)
+    {
+        n.classList.remove("fullscreen")
+    })
+    document.querySelector("#"+news_id).classList.add("fullscreen")
+}   
+
+

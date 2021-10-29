@@ -64,7 +64,7 @@ class User(UserMixin):
 			users.append(user)
 		return users
 
-	def get_Preference():
+	def get_Preference(self):
 		#connect to DB
 		conn = psycopg2.connect(
     		host="localhost",
@@ -75,9 +75,12 @@ class User(UserMixin):
 		cursor = conn.cursor()
 		cursor.execute("select language, country from user_preference where id = '"+self.id+"'")
 		preference = cursor.fetchone()
-		return preference
+		if preference:
+			return preference
+		else:
+			return ('en','in')
 
-	def set_Preference(language, country):
+	def set_Preference(self, language, country):
 		if not self.get_Preference():
 			query = "insert into user_preference values('"+self.id+"','"+language+"','"+country+"')"
 		else:

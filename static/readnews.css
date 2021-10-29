@@ -68,7 +68,7 @@ section
 	object-fit: cover;
 	width: 100%;
 	height: 100%;
-	filter: brightness(0.9);
+	filter: brightness(0.7);
 	z-index: 1;
 }
 .news:hover, 
@@ -77,21 +77,11 @@ section
 	transform:  scale(1.02);
 }
 
-.votes
-{
-	position: absolute;
-	z-index: 3;
-	display: flex;
-	width: 100%;
-	background-color: white;
-	flex-wrap: wrap;
-	top:  100%;
 
-}
-.votes span,div
+
+.hide
 {
-	flex: 1 1 10%;
-	text-align: center;
+	display: none;
 }
 
 .positive-bar
@@ -108,59 +98,23 @@ section
 .fullscreen
 {
 	position: fixed;
-	top: 70px;
-	margin: auto;
-	border: 2px solid;
-	width: 500px;
-	height: 80vh;
-	overflow: auto;
-	padding: 5px;
-	z-index: 999;
-	background-color: green;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-wrap: wrap;
-	display: none;
+	top:  10vh;
+	height:  80vh;
+	width:  80vw;
+	z-index: 5;
 }
-
-.fullscreen > img
+.fullscreen h2
 {
+	top: 0px;
+	left:  0px;
+}
+.fullscreen img
+{
+	position: relative;
 	width: 100%;
-	object-fit: cover;
+	
+}
 
-}
-.fullscreen span
-{
-	flex: 1 1 100%;
-	color:  #444;
-	text-align: left;
-	display: block;
-	margin:  20px 0px 10px 0px;
-	font-weight: 444;
-
-}
-.fullscreen p
-{
-	flex: 1 1 100%;
-	font-size: 1.3em;
-	text-align: justify;
-	font-weight: 555;
-}
-.fullscreen a
-{
-
-	font-size: 1.2em;
-	width: 200px;
-	height: 40px;
-	text-decoration: none;
-	border: 2px solid red;
-	background-color: red;
-	color: black;
-	border-radius: 999px;
-	padding: 5px 10px 5px 10px;
-	text-align: center;
-}
 
 .filter-btn
 {
@@ -187,22 +141,23 @@ section
 {
 	display:  none;
 	position: fixed;
-	bottom: 30px;
+	top: 10vh;
 	right: 6vw;
-	min-height:  400px;
+	min-height:  85vh;
 	width: 200px;
 	background-color: var(--body-background);
 	z-index: 999;
 	border-radius: 5px 5px 50px 5px;
 	box-shadow: 0 0 0 20px var(--body-background);
-	padding: 10px 5vw;
+	padding: 10px 10px;
 	color: #fff;
+	overflow: auto;
 }
 .filter-box button
 {
 	position: absolute;
-	top:  2px;
-	right: 10px;
+	top:  -10px;
+	right: 0px;
 	font-size: 1.5em;
 	background: transparent;
 	color:  #f7ce38;
@@ -221,7 +176,6 @@ section
 	width: 80vw;
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: center;
 	align-items: center;
 }
 .expand a
@@ -233,6 +187,11 @@ section
 	font-size: 1.2em;
 	padding-left: 10px;
 	padding-top: 5px;
+	text-align: left;
+	display: flex;
+	align-items: center;
+	height: 2em;
+	box-sizing: border-box;
 }
 .expand span
 {
@@ -244,7 +203,14 @@ section
 	font-size: 1.1em;
 	font-weight: 555;
 	padding-left: 10px;
+	text-align: left;
 }
+.expand label:hover,
+.expand label:focus
+{
+	border: 1px solid #fff;
+}
+
 .expand input
 {
 	flex: 1 1 5%;

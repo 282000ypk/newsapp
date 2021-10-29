@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href={{url_for('static',filename='style.css')}}>
     <link rel="stylesheet" href={{url_for('static',filename='readnews.css')}}>
-    <link rel="shortcut icon" href={{url_for('static',filename='images/logo.png')}}>
+    <link rel="shortcut iconx" href={{url_for('static',filename='images/logo.png')}}>
     <title>Smart News</title>
 </head>
 <body>
@@ -29,44 +29,34 @@
         </section>
         {%for news in data["articles"]%}
         <button class="news {{news['sentiment']}}" 
-            onclick="" id="{{news['news_id']}}">
+             id="{{news['news_id']}}" onclick="fullview('{{news['news_id']}}')">
             <!--always visible part-->
             {%if news['sentiment'] == 'positive'%}
             <div class="card positive-bar">
             {%else%}
             <div class="card negative-bar">
             {%endif%}
-                <img src="{{news['urlToImage']}}" alt="news description" loading="lazy">
+                
                 <h2>
                     {{news['title']}}
                 </h2>
-                <div class="votes">
-                    <span class="positive_votes {{news['news_id']}}">1</span>
+                <img src="{{news['urlToImage']}}" alt="news description" loading="lazy">
+                
+                <!--  invisible components -->
+                <p class="hide">
+                    {{news['content']}}
+                </p>
+                <a class="hide" href="{{news['url']}}">ReadFull Article</a>
+                <div class="votes hide">
+                    <span class="positive_votes {{news['news_id']}}">Positive Votes: 1</span>
                     <div class="positive-vote-btn" onclick="vote('{{news['news_id']}}','positive')">+</div>
-                    <span class="negative_votes {{news['news_id']}}">3</span>             
+                    <span class="negative_votes {{news['news_id']}}">Negative Votes: 3</span>             
                     <div class="negative-vote-btn" onclick="vote('{{news['news_id']}}','negative')">-</div>
                 </div>
             </div>
         </button>
         {% endfor %}
-        {%for news in data["articles"]%}
-        <!--visible on click-->
-            <div class="fullscreen" id="{{news['news_id']}}">
-                <h2>
-                    {{news['title']}}
-                </h2>
-                <img src="{{news['urlToImage']}}" alt="news description" loading="lazy">
-                <div>
-                    <span>Description:</span>
-                    <p>{{news['description']}}</p>
-                </div>
-                <div>
-                    <span>Content</span>
-                    <p>{{news['content']}}</p>
-                </div>
-                <a href="{{news['url']}}" target="__blank">Read Full Article</a>
-            </div>
-        {% endfor %}
+
     </div>
 
     <footer>
@@ -78,10 +68,10 @@
          <button onclick="collapsebox()">X</button>
          <input type="checkbox" id="negative-filter" onchange="filterbyanalysis()">
          <label for="negative-filter">Filter Negaive News By Analysis</label>
-         <input type="checkbox" id="vote-filter">
-         <label for="vote-filter">Filter Negative News By Votes</label>
-         <span></span><a href="{{url_for('sports_news')}}">Sports News</a> 
-         <span></span><a href="{{url_for('top_headlines')}}">Top Headlines</a>
+         <!--<input type="checkbox" id="vote-filter">
+         <label for="vote-filter">Filter Negative News By Votes</label>-->
+         <span></span><a href="../news/sports">Sports News</a>
+         <span></span><a href="../news/top headlines">Top Headlines News</a>
          <span></span><a href="../news/business">business News</a>
          <span></span><a href="../news/entertainment">entertainment News</a>
          <span></span><a href="../news/health">health News</a>
