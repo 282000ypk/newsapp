@@ -45,9 +45,9 @@ section
 	top: 0px;
 	left: 0px;
 	width: 100%;
-	height: 300px;
+	height: 250px;
 }
-.card > h2
+.news h2
 {
 	position: absolute;
 	z-index: 2;
@@ -60,7 +60,7 @@ section
 	text-align: left;
 	padding: 10px;
 }
-.card > img
+.news img
 {
 	position: absolute;
 	top: 0px;
@@ -72,9 +72,14 @@ section
 	z-index: 1;
 }
 .news:hover, 
-.news:focus + .card > img
+.news:focus + .news img
 {
 	transform:  scale(1.02);
+	filter: brightness(1);
+}
+.news p,a,.votes, i
+{
+	display: none;
 }
 
 
@@ -98,23 +103,105 @@ section
 .fullscreen
 {
 	position: fixed;
-	top:  10vh;
-	height:  80vh;
+	top:  60px;
+	min-height:  calc(80vh - 60);
 	width:  80vw;
-	z-index: 5;
+	z-index: 999;
+	margin: 0px 5vw;
+	overflow: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 2px solid;
+	border-radius: 10px;
+}
+.fullscreen:hover,
+.fullscreen:focus
+{
+	transform: scale(1.0);
+}
+.fullscreen .card
+{
+	width: 100%;
+	min-height: 80vh;
+	border:  none;
+	padding: 25px 10px;
+	position: relative;
 }
 .fullscreen h2
 {
-	top: 0px;
-	left:  0px;
+	position: relative;
+	background: transparent;
+	color: #111;
+	padding: 10px 0px;
 }
 .fullscreen img
 {
 	position: relative;
 	width: 100%;
-	
+	min-height: 40vh;
+	object-fit: cover;
+	object-position: top left;
+}
+.fullscreen p
+{
+	display: block;
+	width: 100%;
+	text-align: left;
+	font-size: 1.5em;
+	font-weight: 222;
+	padding: 10px 0px;
+
+}
+.fullscreen a
+{
+	display: inline-block;
+	text-decoration: none;
+	background-color: #f7ce38;
+	border: 1px solid black;
+	color:  black;
+	text-align: center;
+	border-radius: 999px;
+	padding: 3px;
+	margin: 3px;
+}
+.fullscreen .votes
+{
+	display: flex;
+	font-size: 20px;
+	font-weight: 555;
+	word-spacing: 5px;
+	position: relative;
+}
+.votes i
+{
+	padding: 0px 5px 5px 5px;
+	text-shadow: 0 0 2px black;
+}
+.votes > .negative-vote-btn > i
+{
+	font-size: 20px;
+	color: black;
 }
 
+.votes > .positive-vote-btn > i
+{
+	font-size: 20px;
+	color: #f7ce38;
+}
+.fullscreen > .card > i
+{
+	display: inline;
+	
+	font-size: 25px;
+	color: black;
+}
+.fullscreen > .card > span
+{
+	position: absolute;
+	top:  15px;
+	right:  15px;	
+}
 
 .filter-btn
 {

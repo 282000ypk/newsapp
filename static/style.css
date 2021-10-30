@@ -51,6 +51,7 @@ footer
 
 #logo
 {
+    display: inline-block;
     position: absolute;
     left: 2vw;
     top: 1px;

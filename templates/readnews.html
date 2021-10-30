@@ -7,6 +7,7 @@
     <link rel="stylesheet" href={{url_for('static',filename='style.css')}}>
     <link rel="stylesheet" href={{url_for('static',filename='readnews.css')}}>
     <link rel="shortcut iconx" href={{url_for('static',filename='images/logo.png')}}>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <title>Smart News</title>
 </head>
 <body>
@@ -40,19 +41,27 @@
                 <h2>
                     {{news['title']}}
                 </h2>
+                <div class="votes">
+                    <span class="positive_votes {{news['news_id']}}"></span>
+                    <div class="positive-vote-btn" onclick="vote('{{news['news_id']}}','positive')">
+                        <i class="fas fa-thumbs-up"></i>
+                    </div>
+                    <span class="negative_votes {{news['news_id']}}"></span>             
+                    <div class="negative-vote-btn" onclick="vote('{{news['news_id']}}','negative')">
+                        <i class="fas fa-thumbs-down"></i>
+                    </div>
+                </div>
                 <img src="{{news['urlToImage']}}" alt="news description" loading="lazy">
                 
+
                 <!--  invisible components -->
-                <p class="hide">
-                    {{news['content']}}
+                <p class="">
+                    {{news['content'].split("[+")[0] if news['content']!=None else ""}}
+                    
                 </p>
-                <a class="hide" href="{{news['url']}}">ReadFull Article</a>
-                <div class="votes hide">
-                    <span class="positive_votes {{news['news_id']}}">Positive Votes: 1</span>
-                    <div class="positive-vote-btn" onclick="vote('{{news['news_id']}}','positive')">+</div>
-                    <span class="negative_votes {{news['news_id']}}">Negative Votes: 3</span>             
-                    <div class="negative-vote-btn" onclick="vote('{{news['news_id']}}','negative')">-</div>
-                </div>
+                <a class="" href="{{news['url']}}" target="__blank">ReadFull Article</a>
+                <span onclick="close_news()"><i class="fas fa-times" ></i></span>   
+
             </div>
         </button>
         {% endfor %}

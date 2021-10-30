@@ -44,33 +44,48 @@ function vote(news_id, vote)
     url = "https://localhost:5000/vote_news/" + news_id + "/" + vote
     x = fetch(url, {method: 'get'})
     x.then(()=>{
-        alert("voted successfully")
+        url = "https://localhost:5000/get_votes/" + news_id
+        x = fetch(url, {method: 'get'})
+        x.then(response=> response.json()).then(data => {
+            console.log(data)
+            positive_num = document.querySelector(".positive_votes."+news_id).innerHTML = data['positive_vote']
+            negative_num = document.querySelector(".negative_votes."+news_id).innerHTML = data['negative_vote']
+            console.log("succcess"+ negative_num)
+        })
     })
     x.catch(()=>{
         alert("voting error"+x.JSON)
     })
 }
 
-function update_votes(news_id)
+
+
+function fullview(news_id)
 {
+    //function to update votes
     url = "https://localhost:5000/get_votes/" + news_id
     x = fetch(url, {method: 'get'})
     x.then(response=> response.json()).then(data => {
         console.log(data)
-        positive_num = document.querySelector(".positive_votes."+news_id).innerText = "Positive Votes: " + data['positive_vote']
-        negative_num = document.querySelector(".negative_votes."+news_id).innerText = "Positive Votes: " + data['negative_vote']
+        positive_num = document.querySelector(".positive_votes."+news_id).innerHTML = data['positive_vote']
+        negative_num = document.querySelector(".negative_votes."+news_id).innerHTML = data['negative_vote']
         console.log("succcess"+ negative_num)
-    })
-}
 
-function fullview(news_id)
-{
-    news = document.querySelectorAll(".news")
-    news.forEach(function(n)
-    {
-        n.classList.remove("fullscreen")
+        //function to enlarg screen
+        news = document.querySelectorAll(".news")
+        news.forEach(function(n)
+        {
+            n.classList.remove("fullscreen")
+        })
+        document.querySelector("#"+news_id).classList.add("fullscreen")    
     })
-    document.querySelector("#"+news_id).classList.add("fullscreen")
 }   
 
+function close_news() {
+    news = document.querySelectorAll(".news")
+        news.forEach(function(n)
+        {
+            n.classList.remove("fullscreen")
+        })
+}
 

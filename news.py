@@ -35,7 +35,7 @@ class News():
 		return votes
 
 	@staticmethod
-	def getvotes(news):
+	def clearvotes(news):
 		#connect to DB
 		conn = psycopg2.connect(
     		host="localhost",
@@ -45,7 +45,7 @@ class News():
 
 		cursor = conn.cursor()
 		cursor.execute("delete from news")
-		cursor,execute("commit")
+		cursor.execute("commit")
 
 	@staticmethod
 	def search_news(query):
