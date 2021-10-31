@@ -37,7 +37,7 @@
             {%else%}
             <div class="card negative-bar">
             {%endif%}
-                
+                <span onclick="close_news('{{news['news_id']}}')"><i class="fas fa-times" ></i></span>   
                 <h2>
                     {{news['title']}}
                 </h2>
@@ -60,7 +60,7 @@
                     
                 </p>
                 <a class="" href="{{news['url']}}" target="__blank">ReadFull Article</a>
-                <span onclick="close_news()"><i class="fas fa-times" ></i></span>   
+                
 
             </div>
         </button>

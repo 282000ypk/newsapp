@@ -58,18 +58,26 @@ function vote(news_id, vote)
     })
 }
 
-
+var fullscreen_flag = true
 
 function fullview(news_id)
 {
+    if(fullscreen_flag === false)
+    {
+        fullscreen_flag = true
+        return
+    }
+    else
+    {
+    console.log("clicked news")
     //function to update votes
     url = "https://localhost:5000/get_votes/" + news_id
     x = fetch(url, {method: 'get'})
     x.then(response=> response.json()).then(data => {
-        console.log(data)
+        //console.log(data)
         positive_num = document.querySelector(".positive_votes."+news_id).innerHTML = data['positive_vote']
         negative_num = document.querySelector(".negative_votes."+news_id).innerHTML = data['negative_vote']
-        console.log("succcess"+ negative_num)
+        //console.log("succcess"+ negative_num)
 
         //function to enlarg screen
         news = document.querySelectorAll(".news")
@@ -77,15 +85,19 @@ function fullview(news_id)
         {
             n.classList.remove("fullscreen")
         })
-        document.querySelector("#"+news_id).classList.add("fullscreen")    
+        document.querySelector("#"+news_id).classList.add("fullscreen")   
+        document.querySelector("#"+news_id).disbled = "true"
     })
+    }
 }   
 
-function close_news() {
+function close_news(news_id) {
+    fullscreen_flag = false
     news = document.querySelectorAll(".news")
-        news.forEach(function(n)
-        {
-            n.classList.remove("fullscreen")
-        })
+    news.forEach(function(n)
+    {
+        n.classList.remove("fullscreen")
+    })
 }
+
 
