@@ -9,7 +9,3 @@ numpy
 pandas
 pycorenlp
 psycopg2
-time
-datetime
-os
-hashlib
