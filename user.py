@@ -64,7 +64,7 @@ class User(UserMixin):
 			users.append(user)
 		return users
 
-	def get_Preference(self):
+	def get_preference(self):
 		#connect to DB
 		conn = psycopg2.connect(
     		host="localhost",
@@ -80,17 +80,23 @@ class User(UserMixin):
 		else:
 			return ('en','in')
 
-	def set_Preference(self, language, country):
-		if not self.get_Preference():
-			query = "insert into user_preference values('"+self.id+"','"+language+"','"+country+"')"
-		else:
-			query = "update user_preference set language='"+language+"', country='"+country+"' where id='"+self.id+"'"
+	def set_preference(self, language, country):
+		
 		#connect to DB
 		conn = psycopg2.connect(
     		host="localhost",
     		database="smartnewsapp",
     		user="postgres",
     		password="postgres")
+
+		cursor = conn.cursor()
+		cursor.execute("select language, country from user_preference where id = '"+self.id+"'")
+		preference = cursor.fetchone()
+
+		if not preference:
+			query = "insert into user_preference values('"+self.id+"','"+language+"','"+country+"')"
+		else:
+			query = "update user_preference set language='"+language+"', country='"+country+"' where id='"+self.id+"'"
 
 		cursor = conn.cursor()
 		cursor.execute(query)

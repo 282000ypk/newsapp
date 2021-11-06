@@ -118,6 +118,7 @@ section
 	align-items: center;
 	border: 2px solid;
 	border-radius: 10px;
+	cursor: unset;
 }
 .fullscreen:hover,
 .fullscreen:focus
@@ -126,11 +127,15 @@ section
 }
 .fullscreen .card
 {
-	width: 100%;
+	flex: 1 1 100%;
 	min-height: 80vh;
 	border:  none;
 	padding: 5px 10px 25px 10px;
 	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
 }
 .fullscreen h2
 {
@@ -138,28 +143,52 @@ section
 	background: transparent;
 	color: #111;
 	padding: 10px 0px;
+	flex: 1 1 100%;
+}
+.fullscreen .votes
+{
+	flex: 1 1 100%;
+	display: flex;
+	font-size: 20px;
+	font-weight: 555;
+	word-spacing: 5px;
+	position: relative;
 }
 .fullscreen img
 {
+	flex: 1 1 100%;
 	position: relative;
-	width: 100%;
-	min-height: 40vh;
 	object-fit: cover;
 	object-position: top left;
 }
 .fullscreen p
 {
-	display: block;
-	width: 100%;
+	display: flex;
+	flex: 1 1 100%;
 	text-align: left;
 	font-size: 1.5em;
-	font-weight: 222;
+	font-weight: 333;
 	padding: 10px 0px;
-
 }
+.additiondetails
+{
+	flex: 1 1 100%;
+}
+.lowcontrast
+{
+	display: inline;
+	color: rbga(0,0,0,0.5);
+	font-weight: 111;
+}
+.highcontrast
+{
+	display: inline;
+	font-weight: 222;
+}
+
 .fullscreen a
 {
-	display: inline-block;
+	display: block;
 	text-decoration: none;
 	background-color: #f7ce38;
 	border: 1px solid black;
@@ -169,14 +198,7 @@ section
 	padding: 5px 20px;
 	margin: 3px;
 }
-.fullscreen .votes
-{
-	display: flex;
-	font-size: 20px;
-	font-weight: 555;
-	word-spacing: 5px;
-	position: relative;
-}
+
 .votes i
 {
 	padding: 0px 5px 5px 5px;
@@ -223,6 +245,8 @@ section
 	justify-content: right;
 	height: 30px;
 }
+
+
 
 .filter-btn
 {

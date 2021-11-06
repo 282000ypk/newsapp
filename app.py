@@ -14,6 +14,7 @@ from flask_login import (LoginManager, current_user, login_required, login_user,
 from news import News
 from Sentiment import sentiemnt_analyze, sentiemnt_analyze1
 from cred import GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_DISCOVERY_URL
+from country_language import country_map, language_map
 
 app =  Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -27,6 +28,7 @@ app.secret_key = os.urandom(24)
 GOOGLE_CLIENT_SECRET = "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"
 GOOGLE_DISCOVERY_URL = "https://accounts.google.com/.well-known/openid-configuration"
 
+news_category = ""
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -140,17 +142,17 @@ def change_preference():
 	if current_user.is_authenticated:
 		pass
 	else:
-		return render_template("index.html")
-	return render_template("admin.html")
-
+		return redirect(url_for("main"))
 	if request.method == 'POST' :
-		language = request.form["language"]
-		country = request.form["country"]
+		language = request.args["language"]
+		country = request.args["country"]
 	else:
-		language = request.form["language"]
-		country = request.form["country"]
+		print(request.form.items())
+		language = request.args["language"]
+		country = request.args["country"]
 	user = current_user
 	user.set_preference(language, country)
+	return redirect(url_for("news_by_category", category = news_category))
 
 
 # route to vote news ---
@@ -177,11 +179,12 @@ def news_by_category(category):
 		return render_template("index.html")
 
 	m = os.path.getmtime(category+".json")
-	#print(time.ctime(m))
 	m = time.gmtime(m)
+	
 	c = time.time()
-	#print(time.ctime(c))
 	c = time.gmtime(c)
+	global news_category
+	news_category = category
 
 	print(f"{m} \n {c}")
 	print((c.tm_hour - m.tm_hour)*60+(c.tm_min - m.tm_min))
@@ -191,7 +194,7 @@ def news_by_category(category):
 	if((c.tm_hour - m.tm_hour)*60+(c.tm_min - m.tm_min) >= 60):
 		flag = True
 	# to force updating news
-	# flag = True
+	flag = True
 
 	if(not flag):
 		with open(category+".json","r") as news:
@@ -201,25 +204,26 @@ def news_by_category(category):
 			except:
 				flag = True
 
-	sports_news = None
-
 	if(flag):
 		with open(category+".json","w+") as all:
 			#fetch news from newsapi.org using news.py
-			user_pref = User.get_Preference()
+			user_pref = User.get_preference()
 			print(user_pref)
 			if category == "top_headlines":
 				loaded_news = News.get_top_headlines(user_pref[0],user_pref[1])	
 			else:
 				loaded_news = News.get_news_by_category(category,user_pref[0],user_pref[1])
+			# clear votes as news are refreshed
+			# News.clearvotes()
 
-			#sentiment analysis for all fetched news
+			# sentiment analysis for all fetched news by TextBlob
 			loaded_news = sentiemnt_analyze(loaded_news)
 
-			#top_headlines = sentiemnt_analyze1(top_headlines)
-			#print("analysis by stanformd NLP")
+			# analysis by stanform analysis algorithm.
+			# top_headlines = sentiemnt_analyze1(top_headlines)
+			# print("analysis by stanformd NLP")
 
-			#over write new news to the sports_news.json file
+			#over write new news to the appropriate .json file
 			all.write(json.dumps(loaded_news))
 			print("new updated")
 
@@ -227,7 +231,13 @@ def news_by_category(category):
 
 
 	
-	return render_template("readnews.html",data=loaded_news, user = User, category = category.capitalize()+" News")
+	return render_template("readnews.html", 
+		data=loaded_news, user = User, 
+		category = category.capitalize()+" News", 
+		user_pref = user_pref,
+		country_map = country_map,
+		language_map = language_map
+		)
 
 #to start the flask server
 if __name__ == '__main__':

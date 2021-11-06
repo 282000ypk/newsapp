@@ -55,6 +55,10 @@
                 
 
                 <!--  invisible components -->
+                <div class="additiondetails">
+                    <h3 class="lowcontrast">Published Date:</h3>
+                    <h3 class="highcontrast">{{news['publishedAt']}}</h3>
+                </div>
                 <p class="">
                     {{news['content'].split("[+")[0] if news['content']!=None else ""}}
                     
@@ -74,13 +78,38 @@
 
 
     <div class="filter-box">
+        <form method="get" action="{{url_for('change_preference')}}">
+            <Label for="country">Country: </Label>
+            <select id="country" name="country">
+                {%for key, value in country_map.items()%}
+                    {%if key == user_pref[1]%}
+                    <option value='{{key}}' selected>{{value}}</option>
+                    {%else%}
+                    <option value='{{key}}'>{{value}}</option>
+                    {%endif%}
+                {%endfor%}
+            </select> 
+            <label for="language">Language</label>
+            <select id="language" name="language">
+                 {%for key, value in language_map.items()%}
+                    {%if key == user_pref[0]%}
+                    <option value='{{key}}' selected>{{value}}</option>
+                    {%else%}
+                    <option value='{{key}}'>{{value}}</option>
+                    {%endif%}
+                {%endfor%}
+            </select>
+            <input type="submit" value="Set">
+                  
+        </form>
+
          <button onclick="collapsebox()">X</button>
          <input type="checkbox" id="negative-filter" onchange="filterbyanalysis()">
          <label for="negative-filter">Filter Negaive News By Analysis</label>
          <!--<input type="checkbox" id="vote-filter">
          <label for="vote-filter">Filter Negative News By Votes</label>-->
          <span></span><a href="../news/sports">Sports News</a>
-         <span></span><a href="../news/top headlines">Top Headlines News</a>
+         <span></span><a href="../news/top_headlines">Top Headlines News</a>
          <span></span><a href="../news/business">business News</a>
          <span></span><a href="../news/entertainment">entertainment News</a>
          <span></span><a href="../news/health">health News</a>

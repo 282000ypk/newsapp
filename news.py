@@ -35,7 +35,7 @@ class News():
 		return votes
 
 	@staticmethod
-	def clearvotes(news):
+	def clearvotes():
 		#connect to DB
 		conn = psycopg2.connect(
     		host="localhost",

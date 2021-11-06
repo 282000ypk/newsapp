@@ -4,11 +4,15 @@ import numpy as np
 import pandas as pd
 import json
 from pycorenlp import StanfordCoreNLP
+import hashlib
 
 def sentiemnt_analyze(top_headlines):
 	i=0;
 	for article in top_headlines["articles"]:
 	    testimonial = TextBlob(article["title"].split("-")[0])
+	    hash_obj = hashlib.md5(top_headlines["articles"][i]["title"].encode())
+		# print(hash_obj.hexdigest())
+	    top_headlines["articles"][i]["news_id"] = "news" + hash_obj.hexdigest()
 	    #print(article["title"].split("-")[0])
 	    if(testimonial.sentiment.polarity<0):
 	        top_headlines["articles"][i]["sentiment"]="negative"
@@ -16,7 +20,8 @@ def sentiemnt_analyze(top_headlines):
 	    	top_headlines["articles"][i]["sentiment"]="neutral"
 	    else:
 	        top_headlines["articles"][i]["sentiment"]="positive"
-	    top_headlines["articles"][i]["news_id"] = "news"+str(i)
+	    
+		
 	    i+=1
 	return top_headlines;
 
