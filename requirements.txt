@@ -9,7 +9,6 @@ numpy
 pandas
 pycorenlp
 psycopg2
-json
 time
 datetime
 os

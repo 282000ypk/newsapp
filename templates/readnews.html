@@ -28,6 +28,10 @@
         <section>
             <h1>{{category}}</h1>
         </section>
+        {%if data["totalResults"] == 0 %}
+            <h2>No News Found Please try changing language and country again</h2>
+        {%endif%}
+
         {%for news in data["articles"]%}
         <button class="news {{news['sentiment']}}" 
              id="{{news['news_id']}}" onclick="fullview('{{news['news_id']}}')">
