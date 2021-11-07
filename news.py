@@ -2,6 +2,7 @@ import json
 import psycopg2
 from newsapi import NewsApiClient
 from cred import NEWS_API_KEY
+from database import Database
 
 class News():
 	def __init__(self, title, positive_vote, negative_vote, ):
@@ -12,11 +13,7 @@ class News():
 	@staticmethod
 	def getvotes(news):
 		#connect to DB
-		conn = psycopg2.connect(
-    		host="localhost",
-    		database="smartnewsapp",
-    		user="postgres",
-    		password="postgres")
+		conn = Database.get_server_connection()
 
 		cursor = conn.cursor()
 
@@ -32,20 +29,18 @@ class News():
 				"positive_vote": 0,
 				"negative_vote": 0
 			}
+		conn.close()
 		return votes
 
 	@staticmethod
 	def clearvotes():
 		#connect to DB
-		conn = psycopg2.connect(
-    		host="localhost",
-    		database="smartnewsapp",
-    		user="postgres",
-    		password="postgres")
+		conn = Database.get_server_connection()
 
 		cursor = conn.cursor()
 		cursor.execute("delete from news")
 		cursor.execute("commit")
+		conn.close()
 
 	@staticmethod
 	def search_news(query):

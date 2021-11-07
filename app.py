@@ -176,7 +176,7 @@ def news_by_category(category):
 	if current_user.is_authenticated:
 		User = current_user
 	else:
-		return render_template("index.html")
+		return redirect(url_for("login"))
 
 	m = os.path.getmtime(category+".json")
 	m = time.gmtime(m)

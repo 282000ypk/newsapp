@@ -1,6 +1,6 @@
 
 
-
+/*functions to expand nad colapse menu box*/
 function expandbox()
 {
     document.querySelector(".filter-box").classList.toggle("expand")
@@ -10,6 +10,7 @@ function collapsebox()
     document.querySelector(".filter-box").classList.toggle("expand")
 }
 
+/*function to filter negarive news*/
 function filterbyanalysis()
 {
     if(document.querySelector("#negative-filter:checked")!==null)
@@ -33,12 +34,8 @@ function filterbyanalysis()
     
 }
 
-function load(title)
-{
-    alert("#"+title)
-    document.querySelector("#"+title).classList.toggle("view")
-}
 
+/*function to send async request to vote for news*/
 function vote(news_id, vote)
 {
     url = "https://localhost:5000/vote_news/" + news_id + "/" + vote
@@ -47,10 +44,10 @@ function vote(news_id, vote)
         url = "https://localhost:5000/get_votes/" + news_id
         x = fetch(url, {method: 'get'})
         x.then(response=> response.json()).then(data => {
-            console.log(data)
+            /*console.log(data)*/
             positive_num = document.querySelector(".positive_votes."+news_id).innerHTML = data['positive_vote']
             negative_num = document.querySelector(".negative_votes."+news_id).innerHTML = data['negative_vote']
-            console.log("succcess"+ negative_num)
+            /*console.log("succcess"+ negative_num)*/
         })
     })
     x.catch(()=>{
@@ -58,8 +55,9 @@ function vote(news_id, vote)
     })
 }
 
-var fullscreen_flag = true
 
+/*function  and flag for fullscreen news box */
+var fullscreen_flag = true
 function fullview(news_id)
 {
     if(fullscreen_flag === false)

@@ -1,6 +1,7 @@
 import json
 import psycopg2
 from flask_login import UserMixin
+from database import Database
 
 class User(UserMixin):
 	def __init__(self, id_, name, email, profile_pic_url, user_type):
@@ -13,11 +14,7 @@ class User(UserMixin):
 	@staticmethod
 	def get(user_id):
 		#connect to DB
-		conn = psycopg2.connect(
-    		host="localhost",
-    		database="smartnewsapp",
-    		user="postgres",
-    		password="postgres")
+		conn = Database.get_server_connection()
 
 		cursor = conn.cursor()
 		cursor.execute("select * from newsapp_user where id = '"+user_id+"'")
@@ -27,31 +24,24 @@ class User(UserMixin):
 			return None
 
 		user = User(id_ = user[0],name = user[1], email = user[2], profile_pic_url = user[3], user_type = user[4])
-
+		conn.close()
 		return user
 
 	@staticmethod
 	def create(id_, name, email, profile_pic_url):
 		query = "insert into newsapp_user values('"+id_+"',"+"'"+name+"',"+"'"+email+"',"+"'"+profile_pic_url+"',"+"'USER')"
-		conn = psycopg2.connect(
-    		host="localhost",
-    		database="smartnewsapp",
-    		user="postgres",
-    		password="postgres")
+		conn = Database.get_server_connection()
 		#user = db.execute("select * from newsapp_user where id= ?", (user_id,)).fetchone()
 
 		cursor = conn.cursor()
 		cursor.execute(query)
 		cursor.execute("commit")
+		conn.close()
 
 
 	@staticmethod
 	def get_all():
-		conn = psycopg2.connect(
-    		host="localhost",
-    		database="smartnewsapp",
-    		user="postgres",
-    		password="postgres")
+		conn = Database.get_server_connection()
 		#user = db.execute("select * from newsapp_user where id= ?", (user_id,)).fetchone()
 
 		cursor = conn.cursor()
@@ -62,19 +52,17 @@ class User(UserMixin):
 		for user in all_user:
 			user = User(id_ = user[0],name = user[1], email = user[2], profile_pic_url = user[3], user_type = user[4])
 			users.append(user)
+		conn.close()
 		return users
 
 	def get_preference(self):
 		#connect to DB
-		conn = psycopg2.connect(
-    		host="localhost",
-    		database="smartnewsapp",
-    		user="postgres",
-    		password="postgres")
+		conn = Database.get_server_connection()
 
 		cursor = conn.cursor()
 		cursor.execute("select language, country from user_preference where id = '"+self.id+"'")
 		preference = cursor.fetchone()
+		conn.close()
 		if preference:
 			return preference
 		else:
@@ -83,11 +71,7 @@ class User(UserMixin):
 	def set_preference(self, language, country):
 		
 		#connect to DB
-		conn = psycopg2.connect(
-    		host="localhost",
-    		database="smartnewsapp",
-    		user="postgres",
-    		password="postgres")
+		conn = Database.get_server_connection()
 
 		cursor = conn.cursor()
 		cursor.execute("select language, country from user_preference where id = '"+self.id+"'")
@@ -101,18 +85,16 @@ class User(UserMixin):
 		cursor = conn.cursor()
 		cursor.execute(query)
 		cursor.execute("commit")
+		conn.close()
 
 	def check_vote(self, news_id):
 		query = "select * from news where news_id = '"+news_id+"' and user_id='"+self.id+"'"
-		conn = psycopg2.connect(
-    		host="localhost",
-    		database="smartnewsapp",
-    		user="postgres",
-    		password="postgres")
+		conn = Database.get_server_connection()
 
 		cursor = conn.cursor()
 		cursor.execute(query)
 		vote = cursor.fetchone()
+		conn.close()
 		if not vote:
 			return False
 		else:
@@ -135,14 +117,11 @@ class User(UserMixin):
 			query = "update news set positive_vote = "+str(positive)+", negative_vote = "+str(negative)+" where user_id = '"+self.id+"' and news_id = '"+news_id+"'"
 		print(query)
 		#connect to DB
-		conn = psycopg2.connect(
-    		host="localhost",
-    		database="smartnewsapp",
-    		user="postgres",
-    		password="postgres")
+		conn = Database.get_server_connection()
 
 		cursor = conn.cursor()
 		cursor.execute(query)
 		cursor.execute("commit")
+		conn.close()
 		return news_id
 		
