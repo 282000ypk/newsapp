@@ -302,6 +302,18 @@ section
 {
 	transform:  scale(1.02);
 }
+.filter-box input[type="submit"]
+{
+	background-color: #f7ce38;
+	width: 100px;
+	height: 60px;
+	border-radius: 20px;
+	transition: 0.2s;
+}
+.filter-box input[type="submit"]:hover
+{
+	transform: scale(1.1);
+}
 .expand
 {
 	height: 200px;
