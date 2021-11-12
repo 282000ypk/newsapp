@@ -30,6 +30,7 @@ GOOGLE_DISCOVERY_URL = "https://accounts.google.com/.well-known/openid-configura
 
 news_category = ""
 
+
 login_manager = LoginManager()
 login_manager.init_app(app)
 
@@ -158,14 +159,15 @@ def change_preference():
 # route to vote news ---
 @app.route("/vote_news/<title>/<polarity>")
 def vote_news(title, polarity):
-	print(title, polarity)
-	user = current_user
-	response = user.vote_news(title, polarity)
+	if current_user.is_authenticated:
+		User = current_user
+	else:
+		return "{'error': 'Incorrect Credentials'}"
+	response = User.vote_news(title, polarity)
 	return "{'status': "+str(response)+"}"
 
 @app.route("/get_votes/<title>")
 def get_votes(title):
-	print(title)
 	data = News.getvotes(title)
 	return jsonify(data)
 

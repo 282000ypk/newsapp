@@ -1,5 +1,6 @@
 
-
+var host = "https://nnews-smart.herokuapp.com"
+//var host = "https://localhost:5000/"
 /*functions to expand nad colapse menu box*/
 function expandbox()
 {
@@ -38,10 +39,11 @@ function filterbyanalysis()
 /*function to send async request to vote for news*/
 function vote(news_id, vote)
 {
-    url = "https://nnews-smart.herokuapp.com/vote_news/" + news_id + "/" + vote
+    url = host + "/vote_news/" + news_id + "/" + vote
     x = fetch(url, {method: 'get'})
     x.then(()=>{
-        url = "https://nnews-smart.herokuapp.com/get_votes/" + news_id
+        
+        url = host + "/get_votes/" + news_id
         x = fetch(url, {method: 'get'})
         x.then(response=> response.json()).then(data => {
             /*console.log(data)*/
@@ -69,7 +71,7 @@ function fullview(news_id)
     {
     console.log("clicked news")
     //function to update votes
-    url = "https://nnews-smart.herokuapp.com/get_votes/" + news_id
+    url = host + "/get_votes/" + news_id
     x = fetch(url, {method: 'get'})
     x.then(response=> response.json()).then(data => {
         //console.log(data)

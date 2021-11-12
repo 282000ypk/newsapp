@@ -1,11 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>Admin - DashBoard</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href={{url_for('static',filename='style.css')}}>
+    <link rel="stylesheet" href={{url_for('static',filename='readnews.css')}}>
+    <link rel="shortcut iconx" href={{url_for('static',filename='images/logo.png')}}>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <title>Smart News</title>
 </head>
 <body>
-	
-	<img src="images/svg/logo.png">
+    <!-- header  -->
+    <header>
+        <a href="#" id="logo"><img src={{url_for('static',filename='images/logo.png')}} alt="smart news logo"></a>
+        <div class="btn">
+            <!--<a href="#" id="login-btn">Login</a>
+            <a href="#" id="register-btn">Register</a>
+            -->
+            <span>Hello </span><h3>{{user.name}}</h3>
+            <img src="{{user.profile_pic_url}}">
+        </div>
+    </header>
+    
+    <!--container-->
+    <div class="allnews" id="allnewsid">
+        <section>
+            <h1>{{category}}</h1>
+        </section>
+        
+    </div>
+
+    <footer>
+        <h3>Made By @Yogesh Kamble & @Nikhil Shinde</h3>
+    </footer>
+
 </body>
 </html>
+
+
