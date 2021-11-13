@@ -104,14 +104,16 @@ section
 	border-left: 5px solid red;
 }
 
+
 .fullscreen
-{
+{	
+	background-color: var(--bg);
 	position: fixed;
+	color: black;
 	top:  60px;
-	min-height:  calc(80vh - 60);
-	width:  80vw;
+	height:  80vh;
+	width:  90vw;
 	z-index: 999;
-	margin: 0px 5vw;
 	overflow: auto;
 	display: flex;
 	justify-content: center;
@@ -120,17 +122,20 @@ section
 	border-radius: 10px;
 	cursor: unset;
 }
-.fullscreen:hover,
-.fullscreen:focus
+
+
+.fullscreen:focus,
+.fullscreen:hover
 {
 	transform: scale(1.0);
 }
+
 .fullscreen .card
 {
-	flex: 1 1 100%;
-	min-height: 80vh;
+	width: 100%;
+	height:  80vh;
 	border:  none;
-	padding: 5px 10px 25px 10px;
+	padding: 0px 10px 0px 10px;
 	position: relative;
 	display: flex;
 	align-items: center;
@@ -158,8 +163,10 @@ section
 {
 	flex: 1 1 100%;
 	position: relative;
-	object-fit: cover;
-	object-position: top left;
+}
+.fullscreen p::first-letter
+{
+	font-size: 30px;
 }
 .fullscreen p
 {
@@ -168,8 +175,9 @@ section
 	text-align: left;
 	font-size: 1.5em;
 	font-weight: 333;
-	padding: 10px 0px;
+	padding: 10px 0px 20px 0px;
 }
+
 .additiondetails
 {
 	flex: 1 1 100%;
@@ -177,13 +185,13 @@ section
 .lowcontrast
 {
 	display: inline;
-	color: rbga(0,0,0,0.5);
+	color: rbga(0,0,0,0.3);
 	font-weight: 111;
 }
 .highcontrast
 {
 	display: inline;
-	font-weight: 222;
+	font-weight: 555;
 }
 
 .fullscreen a
@@ -196,7 +204,8 @@ section
 	text-align: center;
 	border-radius: 999px;
 	padding: 5px 20px;
-	margin: 3px;
+	margin: 10px;
+	transform: translateY(-40px);
 }
 
 .votes i
@@ -239,11 +248,12 @@ section
 	top:  0px;
 	font-size: 1.5em;	
 	z-index: 999;
-	background: var(--bg);
+	background: transparent;
 	display: flex;
 	align-items: center;
 	justify-content: right;
 	height: 30px;
+	text-shadow: 0 0 10px 20px black;
 }
 
 
@@ -288,7 +298,7 @@ section
 .filter-box button
 {
 	position: absolute;
-	top:  -10px;
+	top:  -5px;
 	right: 0px;
 	font-size: 1.5em;
 	background: transparent;
@@ -297,23 +307,32 @@ section
 	outline: none;
 	border: none;
 	cursor: pointer;
+	z-index: 999;
 }
+
 .filter-btn:active
 {
 	transform:  scale(1.02);
 }
-.filter-box input[type="submit"]
+.expand select
 {
+	width: 100%;
+	background-color: transparent;
+	color: white;
+	outline: none;
+	border: none;
+	font-size: 15px;
+}
+.expand input[type="submit"]
+{
+	flex: 0 1 100%;
 	background-color: #f7ce38;
 	width: 100px;
-	height: 60px;
+	height: 30px;
 	border-radius: 20px;
 	transition: 0.2s;
 }
-.filter-box input[type="submit"]:hover
-{
-	transform: scale(1.1);
-}
+
 .expand
 {
 	height: 200px;
@@ -337,30 +356,35 @@ section
 	height: 2em;
 	box-sizing: border-box;
 }
+
 .expand span
 {
 	flex:  0 1 5%;
 }
 .expand label
 {	
-	flex: 1 1 94%;
+	flex: 1 1 100%;
 	font-size: 1.1em;
 	font-weight: 555;
 	padding-left: 10px;
 	text-align: left;
 }
+.expand label:nth-child(4)
+{
+	flex: 1 1 90%;
+}
+
 .expand label:hover,
 .expand label:focus
 {
 	border: 1px solid #fff;
 }
 
-.expand input
+.expand input[type="checkbox"]
 {
-	flex: 1 1 5%;
+	flex: 1 1 10%;
 	height: 1.5em;
 }
-
 .filter-box a:hover,
 .filter-box a:focus
 {

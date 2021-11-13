@@ -168,3 +168,10 @@ footer
 {
     width: 100%;
 }
+footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
