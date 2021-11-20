@@ -153,6 +153,7 @@ def change_preference():
 	user.set_preference(language, country)
 	global redirect_to
 	if redirect_to == "profile":
+		redirect_to = ""
 		return redirect(url_for("profile"))
 	else:
 		return redirect(url_for("news_by_category", category = news_category))
@@ -186,7 +187,6 @@ def profile():
 		save_note = "Saved Successfully"
 	else:
 		save_note = ""
-	redirect_to == ""
 	redirect_to = "profile"
 
 	user_pref = User.get_preference()
@@ -231,5 +231,5 @@ def news_by_category(category):
 
 #to start the flask server
 if __name__ == '__main__':
-	app.run(ssl_context = "adhoc")
+	app.run(ssl_context = "adhoc", debug=True)
 
