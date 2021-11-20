@@ -22,14 +22,12 @@ app.secret_key = os.urandom(24)
 # google login implementation code
 
 # google login secret keys 
-
 #GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", None)
 #GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", None)
-GOOGLE_CLIENT_SECRET = "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"
-GOOGLE_DISCOVERY_URL = "https://accounts.google.com/.well-known/openid-configuration"
+
 
 news_category = ""
-
+redirect_to = ""
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -153,7 +151,11 @@ def change_preference():
 		country = request.args["country"]
 	user = current_user
 	user.set_preference(language, country)
-	return redirect(url_for("news_by_category", category = news_category))
+	global redirect_to
+	if redirect_to == "profile":
+		return redirect(url_for("profile"))
+	else:
+		return redirect(url_for("news_by_category", category = news_category))
 
 
 # route to vote news ---
@@ -172,6 +174,30 @@ def get_votes(title):
 	return jsonify(data)
 
 
+@app.route("/profile")
+def profile():
+
+	if current_user.is_authenticated:
+		User = current_user
+	else:
+		return redirect(url_for("login"))
+	global redirect_to
+	if redirect_to == "profile":
+		save_note = "Saved Successfully"
+	else:
+		save_note = ""
+	redirect_to == ""
+	redirect_to = "profile"
+
+	user_pref = User.get_preference()
+	return render_template("profile.html", 
+		user = User, 
+		user_pref = user_pref,
+		country_map = country_map,
+		language_map = language_map,
+		save_note = save_note
+		)
+
 @app.route("/news/<category>")
 def news_by_category(category):
 	# session handling
@@ -180,58 +206,20 @@ def news_by_category(category):
 	else:
 		return redirect(url_for("login"))
 
-	m = os.path.getmtime(category+".json")
-	m = time.gmtime(m)
-	
-	c = time.time()
-	c = time.gmtime(c)
 	global news_category
 	news_category = category
 
-	print(f"{m} \n {c}")
-	print((c.tm_hour - m.tm_hour)*60+(c.tm_min - m.tm_min))
-	flag=False
-	if(c.tm_mday != m.tm_mday):
-		flag = True
-	if((c.tm_hour - m.tm_hour)*60+(c.tm_min - m.tm_min) >= 60):
-		flag = True
-	# to force updating news
-	flag = True
+	user_pref = User.get_preference()
+	print(user_pref)
+	if category == "top_headlines":
+		loaded_news = News.get_top_headlines(user_pref[0],user_pref[1])	
+	else:
+		loaded_news = News.get_news_by_category(category,user_pref[0],user_pref[1])
+	# clear votes as news are refreshed
+	# News.clearvotes()
 
-	if(not flag):
-		with open(category+".json","r") as news:
-			try:
-				loaded_news = json.load(news)
-				print("loaded")
-			except:
-				flag = True
-
-	if(flag):
-		with open(category+".json","w+") as all:
-			#fetch news from newsapi.org using news.py
-			user_pref = User.get_preference()
-			print(user_pref)
-			if category == "top_headlines":
-				loaded_news = News.get_top_headlines(user_pref[0],user_pref[1])	
-			else:
-				loaded_news = News.get_news_by_category(category,user_pref[0],user_pref[1])
-			# clear votes as news are refreshed
-			# News.clearvotes()
-
-			# sentiment analysis for all fetched news by TextBlob
-			loaded_news = sentiemnt_analyze(loaded_news)
-
-			# analysis by stanform analysis algorithm.
-			# top_headlines = sentiemnt_analyze1(top_headlines)
-			# print("analysis by stanformd NLP")
-
-			#over write new news to the appropriate .json file
-			all.write(json.dumps(loaded_news))
-			print("new updated")
-
-
-
-
+	# sentiment analysis for all fetched news by TextBlob
+	loaded_news = sentiemnt_analyze(loaded_news)
 	
 	return render_template("readnews.html", 
 		data=loaded_news, user = User, 
@@ -243,5 +231,5 @@ def news_by_category(category):
 
 #to start the flask server
 if __name__ == '__main__':
-	app.run(ssl_context = "adhoc", debug=True)
+	app.run(ssl_context = "adhoc")
 

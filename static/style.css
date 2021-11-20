@@ -60,6 +60,7 @@ footer
 {
     height: 56px;
 }
+
 .btn
 {
     position: absolute;
@@ -69,17 +70,17 @@ footer
     align-items: center;
     justify-content: right;
 }
-.btn img
+.btn > a > img
 {
     height:  50px;
     border-radius: 50%;
     object-fit: cover;
     margin: 0px 5px;
 }
-.btn span
+.btn h3
 {
     font-weight: 666;
-    font-size: 15px;
+    font-size: 25px;
     margin:  0px 5px;
 }
 .btn a
@@ -100,7 +101,13 @@ footer
     color:  var(--btn-background);
     background: var(--btn-text);
 }
+#profile
+{
+    background: transparent;
+    border:  none;
+    display: flex;
 
+}
 .container
 {
     width: 100%;

@@ -1,0 +1,86 @@
+.profile_container
+{
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+}
+.profile_container > h2
+{
+	flex: 1 1 100%;
+	margin: 20px;
+	border-radius: 20px;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: rgba(0, 255, 0, 0.2);
+}
+.profile_card
+{
+	flex:  0 1 400px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	min-height: 50vh;
+	border:  1px solid;
+	position: relative;
+	padding: 20px;
+	padding-top: 80px;
+
+}
+
+.profile_card > img
+{
+	position: absolute;
+	top:  -100px;
+	background-color: red;
+	height: 150px;
+	width: 150px;
+	border-radius: 50%;
+}
+.profile_card label
+{
+	flex: 1 1 100%;
+	font-size: 1.2em;
+	padding: 10px;
+	margin: 5px;
+}
+.profile_card select
+{
+	width: 100%;
+	flex: 1 1 100%;
+	font-size: 1.2em;
+	padding: 10px;
+	margin: 5px;
+	color: #f7ce38;
+	background-color: transparent;
+}
+.profile_card option
+{
+	background-color: #023246;
+}
+.profile_card input
+{
+	background-color: #f7ce38;
+	width: 100%;
+	padding: 10px;
+	margin: 5px;
+}
+.profile_card a
+{
+	width: 200px;
+	height: 40px;
+	box-shadow: 0 0 1px 10px solid;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 999px;
+	text-decoration: none;
+	color:  black;
+	background-color: #f7ce38;
+
+}

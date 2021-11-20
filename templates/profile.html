@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut iconx" href={{url_for('static',filename='images/logo.png')}}>
+	<link rel="stylesheet" href={{url_for('static',filename='profile.css')}}>
+	<link rel="stylesheet" href={{url_for('static',filename='style.css')}}>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <title>Smart News</title>
+</head>
+<body>
+	<header>
+        <a href="#" id="logo"><img src={{url_for('static',filename='images/logo.png')}} alt="smart news logo"></a>
+        <div class="btn">            
+            <h3>{{user.name}}</h3>
+            <a id="profile" href="{{url_for('profile')}}"><img src="{{user.profile_pic_url}}"></a>
+        </div>
+    </header>
+	<div class="profile_container">
+		<h2>{{save_note}}</h2>
+		<div class="profile_card">
+			<img src="{{user.profile_pic_url}}">
+			<h1>Hello {{user.name}}</h1>
+			<h2>Email: {{user.email}}</h2>
+				<form method="get" action="{{url_for('change_preference')}}">
+		            <Label for="country">Country: </Label>
+		            <select id="country" name="country">
+		                {%for key, value in country_map.items()%}
+		                    {%if key == user_pref[1]%}
+		                    <option value='{{key}}' selected>{{value}}</option>
+		                    {%else%}
+		                    <option value='{{key}}'>{{value}}</option>
+		                    {%endif%}
+		                {%endfor%}
+		            </select> 
+		            <label for="language">Language</label>
+		            <select id="language" name="language">
+		                 {%for key, value in language_map.items()%}
+		                    {%if key == user_pref[0]%}
+		                    <option value='{{key}}' selected>{{value}}</option>
+		                    {%else%}
+		                    <option value='{{key}}'>{{value}}</option>
+		                    {%endif%}
+		                {%endfor%}
+		            </select>
+		            <input type="submit" value="Save">
+        		</form>
+        		<a href="../news/top_headlines">Read News</a>
+		</div>
+	</div>
+	<footer>
+        <h3>Made By @Yogesh Kamble & @Nikhil Shinde</h3>
+    </footer>
+</body>
+</html>
