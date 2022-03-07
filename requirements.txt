@@ -9,3 +9,4 @@ numpy
 pandas
 pycorenlp
 psycopg2
+pyopenssl
