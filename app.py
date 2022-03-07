@@ -231,5 +231,5 @@ def news_by_category(category):
 
 #to start the flask server
 if __name__ == '__main__':
-	app.run(ssl_context = "adhoc", debug=True)
+	app.run(ssl_context = 'adhoc', debug  =True)
 
