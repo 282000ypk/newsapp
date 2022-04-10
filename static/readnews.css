@@ -7,10 +7,9 @@ body
 .allnews
 {
 	display: flex;
-	padding:  59px 0vw 0vw 0vw;
+	padding:  59px 0vw 80px 0vw;
 	flex-wrap: wrap;
 	justify-content: center;
-	min-height:  100vh;
 	position: relative;
 }
 section
