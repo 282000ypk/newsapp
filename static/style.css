@@ -110,7 +110,6 @@ footer
 {
     color:  var(--btn-background);
     background: var(--btn-text);
-    transform: scale(1.5);
 }
 #profile
 {

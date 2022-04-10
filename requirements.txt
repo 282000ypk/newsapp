@@ -9,4 +9,8 @@ numpy
 pandas
 pycorenlp
 psycopg2
+<<<<<<< HEAD
 cryptography
+=======
+pyopenssl
+>>>>>>> 4bc5a2200c574dc21be73ae58990d10ebedb3be4
