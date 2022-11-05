@@ -1,4 +1,5 @@
 import psycopg2
+import os
 
 class Database():
 
@@ -17,6 +18,12 @@ class Database():
 	
 	@staticmethod
 	def get_server_connection():
+		DBString = os.environ.get("DATABASE_URL")
+		DBString = DBString[10:]
+		username = DBString.split("@")[0].split(":")[0]
+		password = DBString.split("@")[0].split(":")[1]
+		host = DBString.split("@")[0].split(":")[0]
+		host = DBString.split("@")[0].split("/")[1]
 		conn = psycopg2.connect(
     		host="ec2-34-202-66-20.compute-1.amazonaws.com",
     		database="dciuebpcuvjmdm",
